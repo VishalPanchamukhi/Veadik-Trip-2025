@@ -5,24 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>VEADIK 🏖️ Office Trip — BayNest Beach House</title>
   
-  <!-- Preload fonts for speed -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --primary: #00d4ff;       /* Cyan */
-      --secondary: #7c4dff;     /* Purple */
-      --accent: #00f5a0;        /* Mint Green */
-      --warn: #ffd166;          /* Amber */
-      --danger: #ff6b6b;        /* Soft Red */
+      --primary: #00d4ff;
+      --secondary: #7c4dff;
+      --accent: #00f5a0;
+      --warn: #ffd166;
+      --danger: #ff6b6b;
       --text-main: #ffffff;
       --text-muted: #d0d6e6;
       
-      --glass-bg: rgba(20, 25, 40, 0.65);
+      --glass-bg: rgba(20, 25, 40, 0.70);
       --glass-border: rgba(255, 255, 255, 0.12);
-      --glass-highlight: rgba(255, 255, 255, 0.08);
       --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.35);
     }
 
@@ -34,9 +33,8 @@
       color: var(--text-main);
       line-height: 1.5;
       min-height: 100vh;
-      /* Background Image: High-quality dark tropical beach */
       background: 
-        linear-gradient(to bottom, rgba(5, 10, 24, 0.7), rgba(5, 10, 24, 0.85)),
+        linear-gradient(to bottom, rgba(5, 10, 24, 0.7), rgba(5, 10, 24, 0.9)),
         url('https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?q=80&w=2070&auto=format&fit=crop') no-repeat center center fixed;
       background-size: cover;
       padding-bottom: 40px;
@@ -49,7 +47,6 @@
       animation: fadeIn 0.8s ease-out;
     }
 
-    /* GLASS CARD STYLING */
     .glass-card {
       background: var(--glass-bg);
       backdrop-filter: blur(16px);
@@ -66,11 +63,10 @@
       border-color: rgba(255,255,255,0.25);
     }
 
-    /* HEADER */
     header {
       padding: 24px;
       position: relative;
-      background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
+      background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
     }
 
     .brand-row {
@@ -78,23 +74,26 @@
       align-items: center;
       gap: 16px;
       margin-bottom: 16px;
+      flex-wrap: wrap;
     }
 
     .logo-container {
       width: 64px;
       height: 64px;
-      background: rgba(255, 255, 255, 0.95);
+      background: rgba(255, 255, 255, 0.98);
       border-radius: 18px;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      overflow: hidden;
     }
 
     .logo-container img {
-      width: 48px;
-      height: 48px;
+      width: 52px;
+      height: 52px;
       object-fit: contain;
+      display: block;
     }
 
     .brand-text h1 {
@@ -114,7 +113,6 @@
       font-weight: 400;
     }
 
-    /* CHIPS */
     .chips {
       display: flex;
       flex-wrap: wrap;
@@ -132,9 +130,11 @@
       backdrop-filter: blur(4px);
     }
     
-    .chip.highlight { border-color: var(--primary); color: #fff; background: rgba(0, 212, 255, 0.15); }
+    .chip.highlight {
+      border-color: var(--primary);
+      background: rgba(0, 212, 255, 0.18);
+    }
 
-    /* BUTTONS */
     .nav-buttons {
       display: flex;
       flex-wrap: wrap;
@@ -173,7 +173,6 @@
       color: var(--accent);
     }
 
-    /* GRID LAYOUT */
     .grid {
       display: grid;
       grid-template-columns: 1.5fr 1fr;
@@ -197,7 +196,6 @@
       gap: 8px;
     }
 
-    /* LOCATION LIST */
     .loc-list {
       display: grid;
       gap: 12px;
@@ -212,7 +210,6 @@
     .loc-label { color: var(--text-muted); font-size: 0.85rem; }
     .loc-val { font-weight: 500; text-align: right; }
 
-    /* ACCORDION (DETAILS) */
     details {
       background: var(--glass-bg);
       border: 1px solid var(--glass-border);
@@ -239,7 +236,6 @@
     }
     
     summary::-webkit-details-marker { display: none; }
-    
     summary:hover { background: rgba(255,255,255,0.03); }
 
     .tag {
@@ -254,7 +250,6 @@
     .tag.beach { background: linear-gradient(45deg, #06b6d4, #22d3ee); color: #000; }
     .tag.fun { background: linear-gradient(45deg, #f59e0b, #fbbf24); color: #000; }
 
-    /* TIMELINE */
     .timeline {
       list-style: none;
       padding: 0 20px 20px;
@@ -312,7 +307,6 @@
     
     .t-desc li::before { display: none; }
 
-    /* FOOTER */
     footer {
       text-align: center;
       color: var(--text-muted);
@@ -335,21 +329,24 @@
     <!-- HEADER CARD -->
     <header class="glass-card">
       <div class="brand-row">
-        <!-- Official Logo -->
         <div class="logo-container">
-          <img src="https://drive.google.com/thumbnail?id=1YvBYuF7k4JgjFKN8K8Y7-i1sSQr8tBmY&sz=w512" alt="VEADIK Logo">
+          <!-- Recommended Google Drive thumbnail format -->
+          <img src="https://drive.google.com/thumbnail?id=1YvBYuF7k4JgjFKN8K8Y7-i1sSQr8tBmY&sz=w512"
+               alt="VEADIK Logo"
+               referrerpolicy="no-referrer" />
         </div>
         <div class="brand-text">
           <h1>VEADIK OFFICE TRIP</h1>
-          <p>BayNest Beach House • Kundapura</p>
+          <p>🏖️BayNest Beach House • Kundapura</p>
         </div>
       </div>
 
       <div class="chips">
-        <span class="chip highlight">📅 Dec 25–27</span>
-        <span class="chip">🚐 Tempo Traveller</span>
-        <span class="chip">🌊 Male Team</span>
+        <span class="chip highlight">📅 25th, 26th & 27th December 2025</span>
+        <span class="chip">📍 Start: Kalyan Nagar, Bangalore</span>
+        <span class="chip">📍🌊 Male Team</span>
         <span class="chip">🔥 Relax & Fun</span>
+        <span class="chip">🚐 Tempo Traveller</span>
       </div>
 
       <div class="nav-buttons">
@@ -357,38 +354,43 @@
         <a href="#day1" class="btn">🌊 Day 1</a>
         <a href="#day2" class="btn">🏝️ Day 2</a>
         <a href="#return" class="btn">🔙 Return</a>
+        <a href="#rules" class="btn">📌 Instructions</a>
       </div>
     </header>
 
     <div class="grid">
-      <!-- MAPS CARD -->
+      <!-- MAPS CARD (you already added your exact links earlier) -->
       <section class="glass-card" style="padding: 20px;">
         <h2>🗺️ Navigate (Click to Open)</h2>
         <div class="nav-buttons" style="margin-top:0;">
-          <a href="https://www.google.com/maps/search/?api=1&query=VEADIK%20Office%2C%20Kalyan%20Nagar%2C%20Bengaluru" target="_blank" class="btn map">🏢 Office</a>
-          <a href="https://www.google.com/maps/search/?api=1&query=Hebbal%2C%20Bengaluru" target="_blank" class="btn map">🚏 Hebbal</a>
-          <a href="https://www.google.com/maps/search/?api=1&query=Goraguntepalya%2C%20Bengaluru" target="_blank" class="btn map">🚏 Goraguntepalya</a>
-          <a href="https://www.google.com/maps/search/?api=1&query=Nelamangala%2C%20Karnataka" target="_blank" class="btn map">🚏 Nelamangala</a>
-          <a href="https://www.google.com/maps/search/?api=1&query=BayNest%20Beach%20House%2C%20Kundapura" target="_blank" class="btn map" style="border-color:var(--primary)">🏖️ BayNest Resort</a>
-          <a href="https://www.google.com/maps/search/?api=1&query=Kodi%20Bengre%20Delta%20Point" target="_blank" class="btn map" style="border-color:var(--accent)">🌊 Delta Point</a>
+          <a href="https://maps.app.goo.gl/LAF1iijaB3hR8pya9" target="_blank" class="btn map">🏢 Office</a>
+          <a href="https://maps.app.goo.gl/ms51LiB7QjquPfxaA" target="_blank" class="btn map">🚏 Hebbal</a>
+          <a href="https://maps.app.goo.gl/rHRuxFrj26JEBdQk6" target="_blank" class="btn map">🚏 Goraguntepalya</a>
+          <a href="https://maps.app.goo.gl/STF2vHemHNfZAL4m7" target="_blank" class="btn map">🚏 Nelamangala</a>
+          <a href="https://maps.app.goo.gl/wbxwSBydcS9paeSC7" target="_blank" class="btn map" style="border-color:var(--primary)">🏖️ BayNest Beach House</a>
+          <a href="https://maps.app.goo.gl/1s5CnZiwn8dNUBNc6" target="_blank" class="btn map" style="border-color:var(--accent)">🌊 Kodi Delta Point</a>
         </div>
       </section>
 
-      <!-- INFO CARD -->
+      <!-- QUICK INFO -->
       <aside class="glass-card" style="padding: 20px;">
         <h2>✅ Quick Info</h2>
         <div class="loc-list">
           <div class="loc-item">
-            <span class="loc-label">Coordinator</span>
-            <span class="loc-val">Admin Team</span>
+            <span class="loc-label">Route</span>
+            <span class="loc-val">Hebbal → Goraguntepalya → Nelamangala</span>
           </div>
           <div class="loc-item">
             <span class="loc-label">Stay</span>
-            <span class="loc-val">BayNest Homestay</span>
+            <span class="loc-val">BayNest Beach House</span>
           </div>
           <div class="loc-item">
-            <span class="loc-label">Safety</span>
-            <span class="loc-val" style="color:var(--warn)">Controlled ⚠️</span>
+            <span class="loc-label">Nearby</span>
+            <span class="loc-val">Kodi Delta Point</span>
+          </div>
+          <div class="loc-item">
+            <span class="loc-label">Reminder</span>
+            <span class="loc-val" style="color:var(--warn);">Dinner at home on 25th 🍽️</span>
           </div>
         </div>
       </aside>
@@ -397,32 +399,67 @@
     <!-- DAY 0 -->
     <details id="day0" open>
       <summary>
-        <span>DAY 0 — Night Journey</span>
-        <span class="tag night">Dec 25</span>
+        <span>DAY 0 — 25th Dec (Late Night Journey)</span>
+        <span class="tag night">🌙 Travel</span>
       </summary>
       <ul class="timeline">
         <li>
-          <span class="t-time">06:45 PM – 07:15 PM</span>
-          <div class="t-title">🏢 Assembly @ Kalyan Nagar Office</div>
+          <span class="t-time">09:00 PM – 09:30 PM</span>
+          <div class="t-title">🏢 Office Assembly – Kalyan Nagar</div>
           <ul class="t-desc">
-            <li>Attendance & Luggage Loading</li>
-            <li>Seating arrangement & Briefing</li>
+            <li>Team assembles at office</li>
+            <li>Attendance check</li>
+            <li>Luggage loading</li>
+            <li>Seating arrangement</li>
+            <li>Brief instructions</li>
+          </ul>
+          <p class="t-desc" style="margin-top:6px;"><strong>👉 Note:</strong> Everyone must finish dinner at home before coming.</p>
+        </li>
+        <li>
+          <span class="t-time">09:30 PM – 10:00 PM</span>
+          <div class="t-title">⏳ Buffer &amp; Final Calls</div>
+          <div class="t-desc">Buffer time and final confirmation calls to pick-up members.</div>
+        </li>
+        <li>
+          <span class="t-time">10:00 PM – JOURNEY STARTS 🚐</span>
+          <div class="t-title">Start from Office</div>
+          <ul class="t-desc">
+            <li>Music ON 🎶</li>
+            <li>Light snacks only</li>
+            <li>Casual team interaction</li>
+            <li><strong>Limited alcohol (responsible) ⚠️</strong></li>
           </ul>
         </li>
         <li>
-          <span class="t-time">07:30 PM</span>
-          <div class="t-title">🚐 Journey Starts!</div>
-          <div class="t-desc">Music ON 🎶 • Light snacks • Casual bonding</div>
+          <span class="t-time">10:30 PM – 10:45 PM</span>
+          <div class="t-title">🚏 Hebbal Pick-up</div>
         </li>
         <li>
-          <span class="t-time">08:00 PM – 09:30 PM</span>
-          <div class="t-title">🚏 Route Pick-ups</div>
-          <div class="t-desc">Hebbal ➔ Goraguntepalya ➔ Nelamangala</div>
+          <span class="t-time">11:05 PM – 11:20 PM</span>
+          <div class="t-title">🚏 Goraguntepalya Pick-up</div>
         </li>
         <li>
-          <span class="t-time">12:00 AM</span>
-          <div class="t-title">🍽️ Dinner Break on Highway</div>
-          <div class="t-desc">Followed by overnight sleep in vehicle 😴</div>
+          <span class="t-time">11:40 PM – 11:55 PM</span>
+          <div class="t-title">🚏 Nelamangala Pick-up</div>
+          <p class="t-desc" style="margin-top:4px;">✅ After Nelamangala → Direct highway drive towards Kundapura.</p>
+        </li>
+        <li>
+          <span class="t-time">12:00 AM – 02:00 AM</span>
+          <div class="t-title">🌙 Night Travel Flow</div>
+          <ul class="t-desc">
+            <li>Music &amp; light fun</li>
+            <li>Team bonding</li>
+            <li>Those tired can rest</li>
+          </ul>
+        </li>
+        <li>
+          <span class="t-time">02:00 AM – 02:30 AM</span>
+          <div class="t-title">☕ Washroom / Tea Break</div>
+        </li>
+        <li>
+          <span class="t-time">02:30 AM – 07:30 AM</span>
+          <div class="t-title">🛣️ Long Drive</div>
+          <div class="t-desc">Sleep / rest in vehicle 😴</div>
         </li>
       </ul>
     </details>
@@ -430,42 +467,99 @@
     <!-- DAY 1 -->
     <details id="day1">
       <summary>
-        <span>DAY 1 — Beach & Campfire</span>
-        <span class="tag beach">Dec 26</span>
+        <span>DAY 1 — 26th Dec (Travel + Kaadi + Check-in)</span>
+        <span class="tag beach">🌊 Beach Day</span>
       </summary>
       <ul class="timeline">
         <li>
-          <span class="t-time">06:00 AM</span>
-          <div class="t-title">📍 Arrival at Kundapura</div>
-          <div class="t-desc">Check-in at Homestay • Freshen up 🚿</div>
-        </li>
-        <li>
-          <span class="t-time">08:00 AM</span>
-          <div class="t-title">🍳 Breakfast</div>
-        </li>
-        <li>
-          <span class="t-time">11:00 AM – 02:00 PM</span>
-          <div class="t-title">🌊 Beach Mode ON</div>
+          <span class="t-time">07:30 AM – 08:00 AM</span>
+          <div class="t-title">🌅 Early Morning Break</div>
           <ul class="t-desc">
-            <li>Beach walk & Group photos 📸</li>
-            <li>Light games & Chill time</li>
-            <li>🥥 Kaadi drinks (Responsible & Safe)</li>
+            <li>Morning washroom break</li>
+            <li>Tea / coffee ☕</li>
+            <li>Freshen up</li>
           </ul>
         </li>
         <li>
-          <span class="t-time">03:30 PM – 05:30 PM</span>
-          <div class="t-title">😴 Relax / Nap Time</div>
-          <div class="t-desc">Recharge batteries • Cards & Music</div>
+          <span class="t-time">08:00 AM – 09:30 AM</span>
+          <div class="t-title">🍶 Kaadi Purchase &amp; Arrangements</div>
+          <ul class="t-desc">
+            <li>Visit local shop</li>
+            <li>Kaadi purchase</li>
+            <li>Water, soft drinks &amp; essentials</li>
+            <li>Keep items safely secured</li>
+          </ul>
         </li>
         <li>
-          <span class="t-time">05:45 PM</span>
-          <div class="t-title">🌅 Sunset View</div>
-          <div class="t-desc">Golden hour photography at the beach</div>
+          <span class="t-time">09:30 AM – 11:30 AM</span>
+          <div class="t-title">🕘 Pre Check-in Time Utilization</div>
+          <ul class="t-desc">
+            <li>Relax near beach / common area</li>
+            <li>Light walk</li>
+            <li>Photos</li>
+            <li>Freshen up &amp; change clothes</li>
+            <li><strong>Kaadi drinks (limited)</strong></li>
+          </ul>
         </li>
         <li>
-          <span class="t-time">09:30 PM Onwards</span>
-          <div class="t-title">🔥 Campfire & Dinner</div>
-          <div class="t-desc">Music, Dance, Bonding & Fun Discussions 🎶</div>
+          <span class="t-time">12:00 PM</span>
+          <div class="t-title">🏠 CHECK-IN at BayNest Beach House ✅</div>
+          <ul class="t-desc">
+            <li>Room allocation</li>
+            <li>Keep luggage</li>
+            <li>Settle in</li>
+          </ul>
+        </li>
+        <li>
+          <span class="t-time">01:00 PM – 02:00 PM</span>
+          <div class="t-title">🍽️ Lunch &amp; Rest</div>
+          <div class="t-desc">Lunch at homestay.</div>
+        </li>
+        <li>
+          <span class="t-time">02:00 PM – 04:30 PM</span>
+          <div class="t-title">😌 Afternoon Rest</div>
+          <ul class="t-desc">
+            <li>Rest / nap</li>
+            <li>Music</li>
+            <li>Cards / casual games</li>
+            <li>Recharge time</li>
+          </ul>
+        </li>
+        <li>
+          <span class="t-time">04:45 PM – 06:45 PM</span>
+          <div class="t-title">🌊 Beach + Kaadi Session</div>
+          <ul class="t-desc">
+            <li>Beach visit 🌊</li>
+            <li>Walk &amp; relaxation</li>
+            <li>Group photos &amp; reels</li>
+            <li>Light beach games</li>
+            <li><strong>Alcohol consumption (controlled &amp; responsible)</strong></li>
+            <li>Enjoy sea breeze</li>
+          </ul>
+        </li>
+        <li>
+          <span class="t-time">07:00 PM – 08:00 PM</span>
+          <div class="t-title">🌆 Evening Freshen Up</div>
+          <ul class="t-desc">
+            <li>Freshen up</li>
+            <li>Tea &amp; snacks ☕</li>
+          </ul>
+        </li>
+        <li>
+          <span class="t-time">08:00 PM – 09:30 PM</span>
+          <div class="t-title">🍛 Dinner</div>
+        </li>
+        <li>
+          <span class="t-time">09:30 PM onwards</span>
+          <div class="t-title">🔥 Campfire Night</div>
+          <ul class="t-desc">
+            <li>Campfire 🔥</li>
+            <li>Music &amp; dance 🎶</li>
+            <li>Team bonding</li>
+            <li><strong>Alcohol consumption continue (safe &amp; controlled)</strong></li>
+            <li>Fun discussions &amp; memories</li>
+          </ul>
+          <p class="t-desc" style="margin-top:6px;">🛏️ Overnight stay at homestay.</p>
         </li>
       </ul>
     </details>
@@ -473,28 +567,59 @@
     <!-- DAY 2 -->
     <details id="day2">
       <summary>
-        <span>DAY 2 — Delta Point & Games</span>
-        <span class="tag fun">Dec 27</span>
+        <span>DAY 2 — 27th Dec (Kodi + Activities)</span>
+        <span class="tag fun">🏝️ Explore</span>
       </summary>
       <ul class="timeline">
         <li>
-          <span class="t-time">07:30 AM</span>
-          <div class="t-title">☀️ Wake up & Breakfast</div>
+          <span class="t-time">07:30 AM – 08:30 AM</span>
+          <div class="t-title">🌅 Morning Routine</div>
+          <ul class="t-desc">
+            <li>Wake up</li>
+            <li>Freshen up</li>
+            <li>Breakfast ☕🍳</li>
+          </ul>
         </li>
         <li>
           <span class="t-time">09:00 AM – 11:30 AM</span>
-          <div class="t-title">🌊 Kodi Bengre Delta Point</div>
-          <div class="t-desc">Visit the beautiful River-Sea confluence • Scenic photos 📸</div>
+          <div class="t-title">🌊 Kodi Delta Point</div>
+          <ul class="t-desc">
+            <li>Travel to Kodi Bengre Delta Point</li>
+            <li>River–sea confluence view</li>
+            <li>Photography</li>
+            <li>Peaceful relaxation</li>
+          </ul>
+        </li>
+        <li>
+          <span class="t-time">12:30 PM – 01:30 PM</span>
+          <div class="t-title">🍽️ Lunch</div>
         </li>
         <li>
           <span class="t-time">02:00 PM – 04:30 PM</span>
-          <div class="t-title">🏐 Team Activities</div>
-          <div class="t-desc">Outdoor games • Group challenges • Fun wrap-up</div>
+          <div class="t-title">🏖️ Team Games &amp; Fun</div>
+          <ul class="t-desc">
+            <li>Beach / outdoor team games</li>
+            <li>Group challenges</li>
+            <li>Light trekking (optional)</li>
+            <li>Fun wrap-up activities</li>
+          </ul>
         </li>
         <li>
-          <span class="t-time">07:30 PM</span>
-          <div class="t-title">🍛 Final Dinner & Feedback</div>
-          <div class="t-desc">Group interaction • Closing photos</div>
+          <span class="t-time">05:00 PM – 06:30 PM</span>
+          <div class="t-title">☕ Evening Refresh</div>
+          <ul class="t-desc">
+            <li>Freshen up</li>
+            <li>Tea &amp; snacks ☕</li>
+          </ul>
+        </li>
+        <li>
+          <span class="t-time">07:30 PM – 08:45 PM</span>
+          <div class="t-title">🍛 Final Dinner &amp; Wrap-up</div>
+          <ul class="t-desc">
+            <li>Final dinner</li>
+            <li>Group interaction</li>
+            <li>Feedback &amp; photos</li>
+          </ul>
         </li>
       </ul>
     </details>
@@ -502,34 +627,68 @@
     <!-- RETURN -->
     <details id="return">
       <summary>
-        <span>RETURN JOURNEY</span>
-        <span class="tag night">Return</span>
+        <span>RETURN JOURNEY — 27th Night</span>
+        <span class="tag night">🚐 Return</span>
       </summary>
       <ul class="timeline">
         <li>
-          <span class="t-time">09:15 PM</span>
-          <div class="t-title">✅ Checkout & Load Luggage</div>
+          <span class="t-time">09:15 PM – 09:30 PM</span>
+          <div class="t-title">✅ Checkout &amp; Load Luggage</div>
         </li>
         <li>
           <span class="t-time">09:30 PM</span>
-          <div class="t-title">🚐 Return Trip Starts</div>
-          <div class="t-desc">Drop points: Nelamangala ➔ Goraguntepalya ➔ Hebbal ➔ Office</div>
+          <div class="t-title">🚐 Return Starts</div>
+          <div class="t-desc">Drop Points (same route order): Nelamangala → Goraguntepalya → Hebbal → Kalyan Nagar – Office.</div>
         </li>
         <li>
-          <span class="t-time">Next Morning</span>
-          <div class="t-title">🏁 Trip Closure</div>
-          <div class="t-desc">Reach Bengaluru early morning</div>
+          <span class="t-time">28th December – Early Morning</span>
+          <div class="t-title">🏁 Final Drop</div>
+          <div class="t-desc">Final drop at office &amp; trip closure.</div>
         </li>
       </ul>
     </details>
 
-    <section class="glass-card" style="padding: 20px; text-align: center; border-color: rgba(255, 209, 102, 0.3);">
-      <h2 style="justify-content: center; color: var(--warn);">⚠️ Important Notes</h2>
-      <p style="font-size: 0.9rem; margin-bottom: 0;">Be Punctual • Drink Responsibly • Stay Safe Near Water</p>
+    <!-- GENERAL INSTRUCTIONS -->
+    <section class="glass-card" id="rules" style="padding: 20px; border-color: rgba(255, 209, 102, 0.4);">
+      <h2>📌 General Instructions</h2>
+      <ul class="timeline" style="border-left:none;padding:0 0 0 4px;">
+        <li style="border-left:none;margin-bottom:10px;padding-left:0;">
+          <div class="t-title">🍽️ Before Trip</div>
+          <ul class="t-desc">
+            <li>Finish dinner at home on 25th December.</li>
+          </ul>
+        </li>
+        <li style="border-left:none;margin-bottom:10px;padding-left:0;">
+          <div class="t-title">⏰ Punctuality</div>
+          <ul class="t-desc">
+            <li>Be punctual at all pick-up points.</li>
+            <li>Follow timings strictly.</li>
+          </ul>
+        </li>
+        <li style="border-left:none;margin-bottom:10px;padding-left:0;">
+          <div class="t-title">🥥 Behaviour &amp; Safety</div>
+          <ul class="t-desc">
+            <li>Responsible behaviour during beach time &amp; drinks.</li>
+            <li>Safety first at all times, especially near water.</li>
+          </ul>
+        </li>
+        <li style="border-left:none;margin-bottom:10px;padding-left:0;">
+          <div class="t-title">♻️ Cleanliness</div>
+          <ul class="t-desc">
+            <li>Keep surroundings and vehicle clean.</li>
+          </ul>
+        </li>
+        <li style="border-left:none;padding-left:0;">
+          <div class="t-title">🤝 Vibes</div>
+          <ul class="t-desc">
+            <li>Enjoy, relax &amp; bond as a team.</li>
+          </ul>
+        </li>
+      </ul>
     </section>
 
     <footer>
-      <p>© 2025 VEADIK CONSULTANTS<br>Have a safe and memorable trip!</p>
+      <p>Have a safe and memorable trip! 🌊🔥<br><br><br><br><br><br><br><br><br>© 2025 VISHAL PANCHAMUKHI</p>
     </footer>
 
   </div>
