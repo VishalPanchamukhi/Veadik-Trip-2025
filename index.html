@@ -1,0 +1,538 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>VEADIK 🏖️ Office Trip — BayNest Beach House</title>
+  
+  <!-- Preload fonts for speed -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #00d4ff;       /* Cyan */
+      --secondary: #7c4dff;     /* Purple */
+      --accent: #00f5a0;        /* Mint Green */
+      --warn: #ffd166;          /* Amber */
+      --danger: #ff6b6b;        /* Soft Red */
+      --text-main: #ffffff;
+      --text-muted: #d0d6e6;
+      
+      --glass-bg: rgba(20, 25, 40, 0.65);
+      --glass-border: rgba(255, 255, 255, 0.12);
+      --glass-highlight: rgba(255, 255, 255, 0.08);
+      --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.35);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Outfit', system-ui, -apple-system, sans-serif;
+      color: var(--text-main);
+      line-height: 1.5;
+      min-height: 100vh;
+      /* Background Image: High-quality dark tropical beach */
+      background: 
+        linear-gradient(to bottom, rgba(5, 10, 24, 0.7), rgba(5, 10, 24, 0.85)),
+        url('https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?q=80&w=2070&auto=format&fit=crop') no-repeat center center fixed;
+      background-size: cover;
+      padding-bottom: 40px;
+    }
+
+    .wrap {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    /* GLASS CARD STYLING */
+    .glass-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+      overflow: hidden;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+    
+    .glass-card:hover {
+      border-color: rgba(255,255,255,0.25);
+    }
+
+    /* HEADER */
+    header {
+      padding: 24px;
+      position: relative;
+      background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
+    }
+
+    .brand-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .logo-container {
+      width: 64px;
+      height: 64px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    .logo-container img {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+    }
+
+    .brand-text h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      font-weight: 800;
+      background: linear-gradient(to right, #fff, #a5b4fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-text p {
+      margin: 4px 0 0;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      font-weight: 400;
+    }
+
+    /* CHIPS */
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .chip {
+      font-size: 0.85rem;
+      padding: 6px 14px;
+      border-radius: 50px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      font-weight: 500;
+      backdrop-filter: blur(4px);
+    }
+    
+    .chip.highlight { border-color: var(--primary); color: #fff; background: rgba(0, 212, 255, 0.15); }
+
+    /* BUTTONS */
+    .nav-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .btn {
+      text-decoration: none;
+      color: #fff;
+      background: rgba(255,255,255,0.08);
+      padding: 10px 18px;
+      border-radius: 14px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn:hover {
+      background: rgba(255,255,255,0.15);
+      transform: translateY(-2px);
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, var(--secondary), var(--primary));
+      box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+    }
+    
+    .btn.map {
+      background: rgba(0,0,0,0.3);
+      border: 1px dashed rgba(255,255,255,0.3);
+      color: var(--accent);
+    }
+
+    /* GRID LAYOUT */
+    .grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 20px;
+    }
+    
+    @media (max-width: 768px) {
+      .grid { grid-template-columns: 1fr; }
+      .brand-text h1 { font-size: 1.4rem; }
+    }
+
+    h2 {
+      margin: 0 0 16px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* LOCATION LIST */
+    .loc-list {
+      display: grid;
+      gap: 12px;
+    }
+    .loc-item {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding-bottom: 8px;
+      font-size: 0.95rem;
+    }
+    .loc-label { color: var(--text-muted); font-size: 0.85rem; }
+    .loc-val { font-weight: 500; text-align: right; }
+
+    /* ACCORDION (DETAILS) */
+    details {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      margin-bottom: 16px;
+      overflow: hidden;
+      transition: background 0.3s;
+    }
+    
+    details[open] {
+      background: rgba(30, 35, 55, 0.8);
+      border-color: rgba(255,255,255,0.2);
+    }
+
+    summary {
+      padding: 18px 20px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 1.05rem;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    summary::-webkit-details-marker { display: none; }
+    
+    summary:hover { background: rgba(255,255,255,0.03); }
+
+    .tag {
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 800;
+    }
+    .tag.night { background: linear-gradient(45deg, #4f46e5, #818cf8); }
+    .tag.beach { background: linear-gradient(45deg, #06b6d4, #22d3ee); color: #000; }
+    .tag.fun { background: linear-gradient(45deg, #f59e0b, #fbbf24); color: #000; }
+
+    /* TIMELINE */
+    .timeline {
+      list-style: none;
+      padding: 0 20px 20px;
+      margin: 0;
+    }
+    
+    .timeline li {
+      position: relative;
+      padding-left: 24px;
+      margin-bottom: 24px;
+      border-left: 2px solid rgba(255,255,255,0.1);
+    }
+    
+    .timeline li:last-child { margin-bottom: 0; border-left-color: transparent; }
+    
+    .timeline li::before {
+      content: '';
+      position: absolute;
+      left: -6px;
+      top: 0;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--primary);
+      box-shadow: 0 0 10px var(--primary);
+    }
+
+    .t-time {
+      font-size: 0.85rem;
+      color: var(--primary);
+      font-weight: 700;
+      margin-bottom: 4px;
+      display: block;
+    }
+    
+    .t-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #fff;
+    }
+    
+    .t-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin: 0;
+      padding-left: 0;
+    }
+    
+    .t-desc li {
+      border: none;
+      padding: 2px 0;
+      margin: 0;
+    }
+    
+    .t-desc li::before { display: none; }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-top: 40px;
+      opacity: 0.7;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="wrap">
+    
+    <!-- HEADER CARD -->
+    <header class="glass-card">
+      <div class="brand-row">
+        <!-- Official Logo -->
+        <div class="logo-container">
+          <img src="https://drive.google.com/thumbnail?id=1YvBYuF7k4JgjFKN8K8Y7-i1sSQr8tBmY&sz=w512" alt="VEADIK Logo">
+        </div>
+        <div class="brand-text">
+          <h1>VEADIK OFFICE TRIP</h1>
+          <p>BayNest Beach House • Kundapura</p>
+        </div>
+      </div>
+
+      <div class="chips">
+        <span class="chip highlight">📅 Dec 25–27</span>
+        <span class="chip">🚐 Tempo Traveller</span>
+        <span class="chip">🌊 Male Team</span>
+        <span class="chip">🔥 Relax & Fun</span>
+      </div>
+
+      <div class="nav-buttons">
+        <a href="#day0" class="btn primary">🗓️ Day 0</a>
+        <a href="#day1" class="btn">🌊 Day 1</a>
+        <a href="#day2" class="btn">🏝️ Day 2</a>
+        <a href="#return" class="btn">🔙 Return</a>
+      </div>
+    </header>
+
+    <div class="grid">
+      <!-- MAPS CARD -->
+      <section class="glass-card" style="padding: 20px;">
+        <h2>🗺️ Navigate (Click to Open)</h2>
+        <div class="nav-buttons" style="margin-top:0;">
+          <a href="https://www.google.com/maps/search/?api=1&query=VEADIK%20Office%2C%20Kalyan%20Nagar%2C%20Bengaluru" target="_blank" class="btn map">🏢 Office</a>
+          <a href="https://www.google.com/maps/search/?api=1&query=Hebbal%2C%20Bengaluru" target="_blank" class="btn map">🚏 Hebbal</a>
+          <a href="https://www.google.com/maps/search/?api=1&query=Goraguntepalya%2C%20Bengaluru" target="_blank" class="btn map">🚏 Goraguntepalya</a>
+          <a href="https://www.google.com/maps/search/?api=1&query=Nelamangala%2C%20Karnataka" target="_blank" class="btn map">🚏 Nelamangala</a>
+          <a href="https://www.google.com/maps/search/?api=1&query=BayNest%20Beach%20House%2C%20Kundapura" target="_blank" class="btn map" style="border-color:var(--primary)">🏖️ BayNest Resort</a>
+          <a href="https://www.google.com/maps/search/?api=1&query=Kodi%20Bengre%20Delta%20Point" target="_blank" class="btn map" style="border-color:var(--accent)">🌊 Delta Point</a>
+        </div>
+      </section>
+
+      <!-- INFO CARD -->
+      <aside class="glass-card" style="padding: 20px;">
+        <h2>✅ Quick Info</h2>
+        <div class="loc-list">
+          <div class="loc-item">
+            <span class="loc-label">Coordinator</span>
+            <span class="loc-val">Admin Team</span>
+          </div>
+          <div class="loc-item">
+            <span class="loc-label">Stay</span>
+            <span class="loc-val">BayNest Homestay</span>
+          </div>
+          <div class="loc-item">
+            <span class="loc-label">Safety</span>
+            <span class="loc-val" style="color:var(--warn)">Controlled ⚠️</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- DAY 0 -->
+    <details id="day0" open>
+      <summary>
+        <span>DAY 0 — Night Journey</span>
+        <span class="tag night">Dec 25</span>
+      </summary>
+      <ul class="timeline">
+        <li>
+          <span class="t-time">06:45 PM – 07:15 PM</span>
+          <div class="t-title">🏢 Assembly @ Kalyan Nagar Office</div>
+          <ul class="t-desc">
+            <li>Attendance & Luggage Loading</li>
+            <li>Seating arrangement & Briefing</li>
+          </ul>
+        </li>
+        <li>
+          <span class="t-time">07:30 PM</span>
+          <div class="t-title">🚐 Journey Starts!</div>
+          <div class="t-desc">Music ON 🎶 • Light snacks • Casual bonding</div>
+        </li>
+        <li>
+          <span class="t-time">08:00 PM – 09:30 PM</span>
+          <div class="t-title">🚏 Route Pick-ups</div>
+          <div class="t-desc">Hebbal ➔ Goraguntepalya ➔ Nelamangala</div>
+        </li>
+        <li>
+          <span class="t-time">12:00 AM</span>
+          <div class="t-title">🍽️ Dinner Break on Highway</div>
+          <div class="t-desc">Followed by overnight sleep in vehicle 😴</div>
+        </li>
+      </ul>
+    </details>
+
+    <!-- DAY 1 -->
+    <details id="day1">
+      <summary>
+        <span>DAY 1 — Beach & Campfire</span>
+        <span class="tag beach">Dec 26</span>
+      </summary>
+      <ul class="timeline">
+        <li>
+          <span class="t-time">06:00 AM</span>
+          <div class="t-title">📍 Arrival at Kundapura</div>
+          <div class="t-desc">Check-in at Homestay • Freshen up 🚿</div>
+        </li>
+        <li>
+          <span class="t-time">08:00 AM</span>
+          <div class="t-title">🍳 Breakfast</div>
+        </li>
+        <li>
+          <span class="t-time">11:00 AM – 02:00 PM</span>
+          <div class="t-title">🌊 Beach Mode ON</div>
+          <ul class="t-desc">
+            <li>Beach walk & Group photos 📸</li>
+            <li>Light games & Chill time</li>
+            <li>🥥 Kaadi drinks (Responsible & Safe)</li>
+          </ul>
+        </li>
+        <li>
+          <span class="t-time">03:30 PM – 05:30 PM</span>
+          <div class="t-title">😴 Relax / Nap Time</div>
+          <div class="t-desc">Recharge batteries • Cards & Music</div>
+        </li>
+        <li>
+          <span class="t-time">05:45 PM</span>
+          <div class="t-title">🌅 Sunset View</div>
+          <div class="t-desc">Golden hour photography at the beach</div>
+        </li>
+        <li>
+          <span class="t-time">09:30 PM Onwards</span>
+          <div class="t-title">🔥 Campfire & Dinner</div>
+          <div class="t-desc">Music, Dance, Bonding & Fun Discussions 🎶</div>
+        </li>
+      </ul>
+    </details>
+
+    <!-- DAY 2 -->
+    <details id="day2">
+      <summary>
+        <span>DAY 2 — Delta Point & Games</span>
+        <span class="tag fun">Dec 27</span>
+      </summary>
+      <ul class="timeline">
+        <li>
+          <span class="t-time">07:30 AM</span>
+          <div class="t-title">☀️ Wake up & Breakfast</div>
+        </li>
+        <li>
+          <span class="t-time">09:00 AM – 11:30 AM</span>
+          <div class="t-title">🌊 Kodi Bengre Delta Point</div>
+          <div class="t-desc">Visit the beautiful River-Sea confluence • Scenic photos 📸</div>
+        </li>
+        <li>
+          <span class="t-time">02:00 PM – 04:30 PM</span>
+          <div class="t-title">🏐 Team Activities</div>
+          <div class="t-desc">Outdoor games • Group challenges • Fun wrap-up</div>
+        </li>
+        <li>
+          <span class="t-time">07:30 PM</span>
+          <div class="t-title">🍛 Final Dinner & Feedback</div>
+          <div class="t-desc">Group interaction • Closing photos</div>
+        </li>
+      </ul>
+    </details>
+
+    <!-- RETURN -->
+    <details id="return">
+      <summary>
+        <span>RETURN JOURNEY</span>
+        <span class="tag night">Return</span>
+      </summary>
+      <ul class="timeline">
+        <li>
+          <span class="t-time">09:15 PM</span>
+          <div class="t-title">✅ Checkout & Load Luggage</div>
+        </li>
+        <li>
+          <span class="t-time">09:30 PM</span>
+          <div class="t-title">🚐 Return Trip Starts</div>
+          <div class="t-desc">Drop points: Nelamangala ➔ Goraguntepalya ➔ Hebbal ➔ Office</div>
+        </li>
+        <li>
+          <span class="t-time">Next Morning</span>
+          <div class="t-title">🏁 Trip Closure</div>
+          <div class="t-desc">Reach Bengaluru early morning</div>
+        </li>
+      </ul>
+    </details>
+
+    <section class="glass-card" style="padding: 20px; text-align: center; border-color: rgba(255, 209, 102, 0.3);">
+      <h2 style="justify-content: center; color: var(--warn);">⚠️ Important Notes</h2>
+      <p style="font-size: 0.9rem; margin-bottom: 0;">Be Punctual • Drink Responsibly • Stay Safe Near Water</p>
+    </section>
+
+    <footer>
+      <p>© 2025 VEADIK CONSULTANTS<br>Have a safe and memorable trip!</p>
+    </footer>
+
+  </div>
+
+</body>
+</html>
