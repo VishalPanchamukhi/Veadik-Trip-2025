@@ -396,6 +396,7 @@
       <div class="nav-buttons">
         <a href="#live" class="btn primary">🟢 Live Status</a>
         <a href="#day0" class="btn">🗓️ Day 0</a>
+        <a href="#buss" class="btn">🚌 Live Bus Status</a>
         <a href="#day1" class="btn">🌊 Day 1</a>
         <a href="#day2" class="btn">🏝️ Day 2</a>
         <a href="#return" class="btn">🔙 Return</a>
@@ -475,6 +476,20 @@
         </div>
       </aside>
     </div>
+
+            <!-- LIVE BUS STATUS -->
+    <section class="glass-card" style="padding:20px; margin-top:10px;">
+      <p id="buss"></p>
+      <h2>🚌 Live Bus Status</h2>
+      <p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:8px;">
+        Updated by coordinator from Google Sheet. Refreshes automatically every 30 seconds.
+      </p>
+      <p id="bus-status-text"><strong>Status:</strong> Loading current status…</p>
+      <p id="bus-leg-text"></p>
+      <p id="bus-eta-text"></p>
+      <small id="bus-updated-text" style="opacity:0.7;"></small>
+    </section>
+
 
     <!-- DAY 0 -->
     <details id="day0" open>
@@ -914,6 +929,36 @@
         ddEl.textContent = c.days; hhEl.textContent = c.hours; mmEl.textContent = c.mins;
       }
     }
+    
+        /* ---------- BUS STATUS FROM APPS SCRIPT ---------- */
+    const BUS_API_URL = 'https://script.google.com/macros/s/AKfycbyoGY6nkuEnSMnYg2yMEonwtW4r_L4TN8AXMzfXVsqudHUVZz2tZ36f1I0QQry9-hyS/exec';
+
+    async function loadBusStatus() {
+      const statusEl = document.getElementById('bus-status-text');
+      const legEl = document.getElementById('bus-leg-text');
+      const etaEl = document.getElementById('bus-eta-text');
+      const updEl = document.getElementById('bus-updated-text');
+
+      try {
+        const res = await fetch(BUS_API_URL);
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const data = await res.json();
+
+        statusEl.innerHTML = '<strong>Status:</strong> ' + (data.status || '—');
+        legEl.textContent = data.currentLeg ? 'Current leg: ' + data.currentLeg : '';
+        etaEl.textContent = data.eta ? 'ETA: ' + data.eta : '';
+        updEl.textContent = data.lastUpdated ? 'Last updated: ' + data.lastUpdated : '';
+      } catch (err) {
+        console.error(err);
+        statusEl.innerHTML = '<strong>Status:</strong> Unable to load live status.';
+        legEl.textContent = '';
+        etaEl.textContent = '';
+        updEl.textContent = '';
+      }
+    }
+
+    loadBusStatus();
+    setInterval(loadBusStatus, 30000);
 
     updateLive();
     setInterval(updateLive, 30000);
