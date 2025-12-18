@@ -842,32 +842,6 @@
       <small id="bus-updated-text" style="opacity:0.7;"></small>
     </section>
 
-    <!-- YOUR DISTANCE TO PICKUP -->
-    <section class="glass-card" style="padding:20px; margin-top:6px;">
-      <h2>📍 Your distance to pickup</h2>
-      <p class="status-note">
-        Optional: Allow location only to see distance and open route in Google Maps. Location stays only in your browser.
-      </p>
-      <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:8px;">
-        <label for="pickup-select" style="font-size:0.82rem;">Pickup point:</label>
-        <select id="pickup-select" class="pickup-select">
-          <option value="office">Office – Kalyan Nagar</option>
-          <option value="hebbal">Hebbal</option>
-          <option value="goraguntepalya">Goraguntepalya</option>
-          <option value="nelamangala">Nelamangala</option>
-          <option value="baynest">BayNest Beach House</option>
-        </select>
-        <button id="loc-btn" class="loc-btn">
-          📡 Show my distance
-        </button>
-      </div>
-      <p id="loc-result" style="font-size:0.9rem;margin-top:6px;"></p>
-      <a id="gmaps-link" href="#" target="_blank"
-         style="display:none;margin-top:4px;font-size:0.85rem;color:var(--accent);text-decoration:none;">
-        Open route in Google Maps
-      </a>
-    </section>
-
     <!-- DAY 0 -->
     <details id="day0" open>
       <summary>
@@ -1348,67 +1322,6 @@
 
     loadBusStatus();
     setInterval(loadBusStatus, 30000);
-
-    const PICKUPS = {
-      office: { name: 'Office – Kalyan Nagar',   lat: 13.0260, lng: 77.6420 },
-      hebbal: { name: 'Hebbal',                  lat: 13.0233, lng: 77.3522 },
-      goraguntepalya: { name: 'Goraguntepalya',  lat: 13.0144, lng: 77.3222 },
-      nelamangala: { name: 'Nelamangala',        lat: 13.0315, lng: 77.2837 },
-      baynest: { name: 'BayNest Beach House',    lat: 13.5619, lng: 74.6799 }
-    };
-
-    function toRad(deg) { return deg * Math.PI / 180; }
-
-    function distanceKm(lat1, lon1, lat2, lon2) {
-      const R = 6371;
-      const dLat = toRad(lat2 - lat1);
-      const dLon = toRad(lon2 - lon1);
-      const a =
-        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-        Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
-        Math.sin(dLon / 2) * Math.sin(dLon / 2);
-      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-      return R * c;
-    }
-
-    document.getElementById('loc-btn').addEventListener('click', () => {
-      const select = document.getElementById('pickup-select');
-      const pickup = PICKUPS[select.value];
-      const resultEl = document.getElementById('loc-result');
-      const linkEl = document.getElementById('gmaps-link');
-
-      if (!navigator.geolocation) {
-        resultEl.textContent = 'Your browser does not support location.';
-        linkEl.style.display = 'none';
-        return;
-      }
-
-      resultEl.textContent = 'Getting your location…';
-      linkEl.style.display = 'none';
-
-      navigator.geolocation.getCurrentPosition(
-        pos => {
-          const { latitude, longitude } = pos.coords;
-          const dist = distanceKm(latitude, longitude, pickup.lat, pickup.lng);
-          resultEl.textContent =
-            `You are about ${dist.toFixed(1)} km from ${pickup.name}.`;
-
-          const mapsUrl =
-            'https://www.google.com/maps/dir/?api=1' +
-            `&origin=${latitude},${longitude}` +
-            `&destination=${pickup.lat},${pickup.lng}`;
-
-          linkEl.href = mapsUrl;
-          linkEl.style.display = 'inline-block';
-          linkEl.textContent = 'Open route in Google Maps';
-        },
-        err => {
-          console.error(err);
-          resultEl.textContent = `Error ${err.code}: ${err.message}`;
-          linkEl.style.display = 'none';
-        }
-      );
-    });
 
     updateLive();
     setInterval(updateLive, 30000);
