@@ -33,7 +33,7 @@
       color: var(--text-main);
       line-height: 1.5;
       min-height: 100vh;
-      background:
+      background: 
         linear-gradient(to bottom, rgba(5, 10, 24, 0.7), rgba(5, 10, 24, 0.9)),
         url('https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?q=80&w=2070&auto=format&fit=crop') no-repeat center center fixed;
       background-size: cover;
@@ -354,62 +354,10 @@
     }
     .progress-meta{ display:flex; justify-content:space-between; font-size:.85rem; color:var(--text-muted); margin-top:6px }
 
-    /* Location card extra styles */
-    .loc-explain {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin-bottom: 8px;
-    }
-    .loc-select-row {
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      align-items:center;
-      margin-bottom:8px;
-    }
-    select#pickup-select {
-      background: rgba(0,0,0,0.4);
-      color:#fff;
-      border-radius:10px;
-      border:1px solid rgba(255,255,255,0.25);
-      padding:6px 10px;
-      font-size:0.85rem;
-    }
-    button#loc-btn {
-      border-radius:10px;
-      border:none;
-      padding:8px 14px;
-      font-weight:600;
-      font-size:0.85rem;
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      color:#001219;
-      cursor:pointer;
-      display:inline-flex;
-      align-items:center;
-      gap:6px;
-    }
-    button#loc-btn:hover {
-      opacity:0.9;
-      transform: translateY(-1px);
-    }
-    #loc-result {
-      font-size:0.9rem;
-      margin-top:6px;
-    }
-    #gmaps-link {
-      font-size:0.85rem;
-      color:var(--accent);
-      text-decoration:none;
-    }
-    #gmaps-link:hover {
-      text-decoration:underline;
-    }
-
     @media(max-width:600px){
       .pill{ min-width:84px; padding:8px 10px }
       .pill .num{ font-size:1.4rem }
       .now-next .row{ grid-template-columns: 80px 1fr }
-      .nav-buttons .btn { flex: 1 1 auto; justify-content: center; }
     }
 
     @keyframes fadeIn {
@@ -420,6 +368,7 @@
 </head>
 
 <body>
+
   <div class="wrap">
 
     <!-- HEADER CARD -->
@@ -489,7 +438,6 @@
       </div>
     </section>
 
-    <!-- MAP + QUICK INFO ROW -->
     <div class="grid">
       <!-- MAPS CARD -->
       <section class="glass-card" style="padding: 20px;">
@@ -527,41 +475,6 @@
         </div>
       </aside>
     </div>
-
-    <!-- LIVE BUS STATUS (from Apps Script) -->
-    <section class="glass-card" style="padding:20px; margin-top:10px;">
-      <h2>🚌 Live Bus Status</h2>
-      <p class="loc-explain">
-        Updated by coordinator from Google Sheet. Refreshes automatically every 30 seconds.
-      </p>
-      <p id="bus-status-text"><strong>Status:</strong> Loading current status…</p>
-      <p id="bus-leg-text"></p>
-      <p id="bus-eta-text"></p>
-      <small id="bus-updated-text" style="opacity:0.7;"></small>
-    </section>
-
-    <!-- YOUR DISTANCE TO PICKUP -->
-    <section class="glass-card" style="padding:20px; margin-top:10px;">
-      <h2>📍 Your distance to pickup</h2>
-      <p class="loc-explain">
-        Optional: Share your location only to see distance and open route in Google Maps. Location is used in your browser only.
-      </p>
-      <div class="loc-select-row">
-        <label for="pickup-select" style="font-size:0.85rem;">Pickup point:</label>
-        <select id="pickup-select">
-          <option value="office">Office – Kalyan Nagar</option>
-          <option value="hebbal">Hebbal</option>
-          <option value="goraguntepalya">Goraguntepalya</option>
-          <option value="nelamangala">Nelamangala</option>
-          <option value="baynest">BayNest Beach House</option>
-        </select>
-        <button id="loc-btn">📡 Show my distance</button>
-      </div>
-      <p id="loc-result"></p>
-      <a id="gmaps-link" href="#" target="_blank" style="display:none; margin-top:4px; display:inline-block;">
-        Open route in Google Maps
-      </a>
-    </section>
 
     <!-- DAY 0 -->
     <details id="day0" open>
@@ -860,19 +773,18 @@
 
   </div>
 
-  <!-- SCRIPTS -->
+  <!-- LIVE STATUS SCRIPT -->
   <script>
-    /* ---------- LIVE ITINERARY STATUS (existing) ---------- */
     const pad = n => String(n).padStart(2,'0');
     const istDate = (y, m, d, hh=0, mm=0) =>
-      new Date(\`\${y}-\${pad(m)}-\${pad(d)}T\${pad(hh)}:\${pad(mm)}:00+05:30\`);
+      new Date(`${y}-${pad(m)}-${pad(d)}T${pad(hh)}:${pad(mm)}:00+05:30`);
 
     const fmtTime = d =>
       new Intl.DateTimeFormat('en-IN',{
         hour:'2-digit', minute:'2-digit', hour12:true, timeZone:'Asia/Kolkata'
       }).format(d);
 
-    const fmtRange = (a,b) => \`\${fmtTime(a)} – \${fmtTime(b)}\`;
+    const fmtRange = (a,b) => `${fmtTime(a)} – ${fmtTime(b)}`;
 
     const TRIP_START = istDate(2025,12,25,21,0);
     const TRIP_END   = istDate(2025,12,28,5,0);
@@ -883,6 +795,8 @@
       start: istDate(y,m,d,sh,sm),
       end:   istDate(y,m,d,eh,em)
     });
+
+    // Itinerary slots (same as text above)
 
     // Day 0
     ev('Office assembly — Kalyan Nagar', 2025,12,25, 21,00, 21,30);
@@ -955,7 +869,7 @@
         ddEl.textContent = days; hhEl.textContent = hours; mmEl.textContent = mins;
         liveStateEl.textContent = 'Countdown';
         nowTitleEl.textContent = 'Trip not started';
-        nextTitleEl.textContent = \`Starts at \${fmtTime(TRIP_START)}\`;
+        nextTitleEl.textContent = `Starts at ${fmtTime(TRIP_START)}`;
         progressEl.style.width = '0%';
         progressMeta.textContent = '0%';
         progressWindow.textContent = new Intl.DateTimeFormat('en-IN',{
@@ -979,7 +893,7 @@
       const {current, next} = findSlots(now);
       if (current){
         nowTitleEl.textContent = current.title;
-        nextTitleEl.textContent = next ? \`\${next.title} (\${fmtTime(next.start)})\` : '—';
+        nextTitleEl.textContent = next ? `${next.title} (${fmtTime(next.start)})` : '—';
         const span = current.end - current.start;
         const done = now - current.start;
         const pct = Math.min(100, Math.max(0, Math.round((done/span)*100)));
@@ -991,10 +905,10 @@
         ddEl.textContent = c.days; hhEl.textContent = c.hours; mmEl.textContent = c.mins;
       } else {
         nowTitleEl.textContent = 'Transition / Travel';
-        nextTitleEl.textContent = next ? \`\${next.title} (\${fmtTime(next.start)})\` : '—';
+        nextTitleEl.textContent = next ? `${next.title} (${fmtTime(next.start)})` : '—';
         progressEl.style.width = '0%';
         progressMeta.textContent = '0%';
-        progressWindow.textContent = next ? \`Next at \${fmtTime(next.start)}\` : '—';
+        progressWindow.textContent = next ? `Next at ${fmtTime(next.start)}` : '—';
         const diff = next ? next.start - now : 0;
         const c = fmtCountdown(diff);
         ddEl.textContent = c.days; hhEl.textContent = c.hours; mmEl.textContent = c.mins;
@@ -1003,101 +917,7 @@
 
     updateLive();
     setInterval(updateLive, 30000);
-
-    /* ---------- BUS STATUS FROM APPS SCRIPT ---------- */
-    const BUS_API_URL = 'https://script.google.com/macros/s/AKfycbyoGY6nkuEnSMnYg2yMEonwtW4r_L4TN8AXMzfXVsqudHUVZz2tZ36f1I0QQry9-hyS/exec';
-
-    async function loadBusStatus() {
-      const statusEl = document.getElementById('bus-status-text');
-      const legEl = document.getElementById('bus-leg-text');
-      const etaEl = document.getElementById('bus-eta-text');
-      const updEl = document.getElementById('bus-updated-text');
-
-      try {
-        const res = await fetch(BUS_API_URL);
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-        const data = await res.json();
-
-        statusEl.innerHTML = '<strong>Status:</strong> ' + (data.status || '—');
-        legEl.textContent = data.currentLeg ? 'Current leg: ' + data.currentLeg : '';
-        etaEl.textContent = data.eta ? 'ETA: ' + data.eta : '';
-        updEl.textContent = data.lastUpdated ? 'Last updated: ' + data.lastUpdated : '';
-      } catch (err) {
-        console.error(err);
-        statusEl.innerHTML = '<strong>Status:</strong> Unable to load live status right now.';
-        legEl.textContent = '';
-        etaEl.textContent = '';
-        updEl.textContent = '';
-      }
-    }
-
-    loadBusStatus();
-    setInterval(loadBusStatus, 30000);
-
-    /* ---------- USER LOCATION → PICKUP DISTANCE ---------- */
-    // APPROX coordinates (can refine later if you want)
-    const PICKUPS = {
-      office: { name: 'Office – Kalyan Nagar',   lat: 13.0260, lng: 77.6420 },
-      hebbal: { name: 'Hebbal',                  lat: 13.0358, lng: 77.5970 },
-      goraguntepalya: { name: 'Goraguntepalya',  lat: 13.0256, lng: 77.5300 },
-      nelamangala: { name: 'Nelamangala',        lat: 13.0982, lng: 77.3910 },
-      baynest: { name: 'BayNest Beach House',    lat: 13.5916, lng: 74.6725 } // approx near Koravadi/Kundapura
-    };
-
-    function toRad(deg) { return deg * Math.PI / 180; }
-
-    function distanceKm(lat1, lon1, lat2, lon2) {
-      const R = 6371;
-      const dLat = toRad(lat2 - lat1);
-      const dLon = toRad(lon2 - lon1);
-      const a =
-        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-        Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
-        Math.sin(dLon / 2) * Math.sin(dLon / 2);
-      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-      return R * c;
-    }
-
-    document.getElementById('loc-btn').addEventListener('click', () => {
-      const select = document.getElementById('pickup-select');
-      const pickup = PICKUPS[select.value];
-      const resultEl = document.getElementById('loc-result');
-      const linkEl = document.getElementById('gmaps-link');
-
-      if (!navigator.geolocation) {
-        resultEl.textContent = 'Your browser does not support location.';
-        linkEl.style.display = 'none';
-        return;
-      }
-
-      resultEl.textContent = 'Getting your location…';
-      linkEl.style.display = 'none';
-
-      navigator.geolocation.getCurrentPosition(
-        pos => {
-          const { latitude, longitude } = pos.coords;
-          const dist = distanceKm(latitude, longitude, pickup.lat, pickup.lng);
-          resultEl.textContent =
-            \`You are about \${dist.toFixed(1)} km from \${pickup.name}.\`;
-
-          const mapsUrl =
-            'https://www.google.com/maps/dir/?api=1' +
-            \`&origin=\${latitude},\${longitude}\` +
-            \`&destination=\${pickup.lat},\${pickup.lng}\`;
-
-          linkEl.href = mapsUrl;
-          linkEl.style.display = 'inline-block';
-          linkEl.textContent = 'Open route in Google Maps';
-        },
-        err => {
-          console.error(err);
-          resultEl.textContent =
-            'Could not get your location. Please allow location permission in the browser.';
-          linkEl.style.display = 'none';
-        },
-        { enableHighAccuracy: true, timeout: 10000 }
-      );
-    });
   </script>
+
 </body>
 </html>
