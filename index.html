@@ -476,49 +476,6 @@
       </aside>
     </div>
 
-        <!-- YOUR DISTANCE TO PICKUP -->
-    <section class="glass-card" style="padding: 20px; margin-top: 4px;">
-      <h2>📍 Your distance to pickup</h2>
-      <p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:8px;">
-        Optional: Allow location only to see distance and open route in Google Maps. Location is used in your browser only.
-      </p>
-      <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:8px;">
-        <label for="pickup-select" style="font-size:0.85rem;">Pickup point:</label>
-        <select id="pickup-select" style="
-          background: rgba(0,0,0,0.4);
-          color:#fff;
-          border-radius:10px;
-          border:1px solid rgba(255,255,255,0.25);
-          padding:6px 10px;
-          font-size:0.85rem;">
-          <option value="office">Office – Kalyan Nagar</option>
-          <option value="hebbal">Hebbal</option>
-          <option value="goraguntepalya">Goraguntepalya</option>
-          <option value="nelamangala">Nelamangala</option>
-          <option value="baynest">BayNest Beach House</option>
-        </select>
-        <button id="loc-btn" style="
-          border-radius:10px;
-          border:none;
-          padding:8px 14px;
-          font-weight:600;
-          font-size:0.85rem;
-          background: linear-gradient(135deg, var(--primary), var(--accent));
-          color:#001219;
-          cursor:pointer;
-          display:inline-flex;
-          align-items:center;
-          gap:6px;">
-          📡 Show my distance
-        </button>
-      </div>
-      <p id="loc-result" style="font-size:0.9rem;margin-top:6px;"></p>
-      <a id="gmaps-link" href="#" target="_blank"
-         style="display:none;margin-top:4px;font-size:0.85rem;color:var(--accent);text-decoration:none;">
-        Open route in Google Maps
-      </a>
-    </section>
-
     <!-- DAY 0 -->
     <details id="day0" open>
       <summary>
@@ -957,71 +914,6 @@
         ddEl.textContent = c.days; hhEl.textContent = c.hours; mmEl.textContent = c.mins;
       }
     }
-
-        /* ---------- USER LOCATION → PICKUP DISTANCE ---------- */
-    // Approx coordinates; we can refine later.
-    const PICKUPS = {
-      office: { name: 'Office – Kalyan Nagar',   lat: 13.0260, lng: 77.6420 },
-      hebbal: { name: 'Hebbal',                  lat: 13.0358, lng: 77.5970 },
-      goraguntepalya: { name: 'Goraguntepalya',  lat: 13.0256, lng: 77.5300 },
-      nelamangala: { name: 'Nelamangala',        lat: 13.0982, lng: 77.3910 },
-      baynest: { name: 'BayNest Beach House',    lat: 13.5916, lng: 74.6725 }
-    };
-
-    function toRad(deg) { return deg * Math.PI / 180; }
-
-    function distanceKm(lat1, lon1, lat2, lon2) {
-      const R = 6371;
-      const dLat = toRad(lat2 - lat1);
-      const dLon = toRad(lon2 - lon1);
-      const a =
-        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-        Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
-        Math.sin(dLon / 2) * Math.sin(dLon / 2);
-      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-      return R * c;
-    }
-
-    document.getElementById('loc-btn').addEventListener('click', () => {
-      const select = document.getElementById('pickup-select');
-      const pickup = PICKUPS[select.value];
-      const resultEl = document.getElementById('loc-result');
-      const linkEl = document.getElementById('gmaps-link');
-
-      if (!navigator.geolocation) {
-        resultEl.textContent = 'Your browser does not support location.';
-        linkEl.style.display = 'none';
-        return;
-      }
-
-      resultEl.textContent = 'Getting your location…';
-      linkEl.style.display = 'none';
-
-      navigator.geolocation.getCurrentPosition(
-        pos => {
-          const { latitude, longitude } = pos.coords;
-          const dist = distanceKm(latitude, longitude, pickup.lat, pickup.lng);
-          resultEl.textContent =
-            `You are about ${dist.toFixed(1)} km from ${pickup.name}.`;
-
-          const mapsUrl =
-            'https://www.google.com/maps/dir/?api=1' +
-            `&origin=${latitude},${longitude}` +
-            `&destination=${pickup.lat},${pickup.lng}`;
-
-          linkEl.href = mapsUrl;
-          linkEl.style.display = 'inline-block';
-          linkEl.textContent = 'Open route in Google Maps';
-        },
-        err => {
-          console.error(err);
-          resultEl.textContent =
-            'Could not get your location. Please allow location permission in the browser.';
-          linkEl.style.display = 'none';
-        },
-        { enableHighAccuracy: true, timeout: 10000 }
-      );
-    });
 
     updateLive();
     setInterval(updateLive, 30000);
