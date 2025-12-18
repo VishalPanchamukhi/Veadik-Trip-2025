@@ -8,7 +8,7 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -18,11 +18,15 @@
       --warn: #ffd166;
       --danger: #ff6b6b;
       --text-main: #ffffff;
-      --text-muted: #d0d6e6;
+      --text-muted: #cbd5f5;
 
-      --glass-bg: rgba(20, 25, 40, 0.70);
+      --bg-deep: #050816;
+      --glass-bg: rgba(10, 16, 32, 0.75);
       --glass-border: rgba(255, 255, 255, 0.12);
-      --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.35);
+      --shadow: 0 18px 45px rgba(0, 0, 0, 0.65);
+      --radius-lg: 26px;
+      --radius-md: 18px;
+      --radius-pill: 999px;
     }
 
     * { box-sizing: border-box; }
@@ -33,263 +37,597 @@
       color: var(--text-main);
       line-height: 1.5;
       min-height: 100vh;
-      background: 
-        linear-gradient(to bottom, rgba(5, 10, 24, 0.7), rgba(5, 10, 24, 0.9)),
-        url('https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?q=80&w=2070&auto=format&fit=crop') no-repeat center center fixed;
-      background-size: cover;
-      padding-bottom: 40px;
+      background:
+        radial-gradient(circle at 10% 0%, #00d4ff22 0, transparent 50%),
+        radial-gradient(circle at 90% 100%, #ff6b6b18 0, transparent 55%),
+        linear-gradient(145deg, #020617 0%, #020617 35%, #020617 70%, #020617 100%),
+        url("https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?q=80&w=2070&auto=format&fit=crop") center/cover fixed;
+      background-blend-mode: soft-light, soft-light, normal, overlay;
+      padding: 24px 14px 48px;
     }
 
     .wrap {
-      max-width: 1000px;
+      max-width: 1120px;
       margin: 0 auto;
-      padding: 20px;
       animation: fadeIn 0.8s ease-out;
     }
 
     .glass-card {
       background: var(--glass-bg);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
       border: 1px solid var(--glass-border);
-      border-radius: 24px;
+      border-radius: var(--radius-lg);
       box-shadow: var(--shadow);
       margin-bottom: 20px;
       overflow: hidden;
-      transition: transform 0.3s ease, border-color 0.3s ease;
+      position: relative;
+      isolation: isolate;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+
+    .glass-card::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      background: radial-gradient(circle at 0 0, #ffffff22, transparent 55%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      z-index: -1;
     }
 
     .glass-card:hover {
-      border-color: rgba(255,255,255,0.25);
+      transform: translateY(-2px);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.8);
+      border-color: rgba(255,255,255,0.22);
     }
 
+    .glass-card:hover::before {
+      opacity: 1;
+    }
+
+    /* HERO / HEADER */
     header {
-      padding: 24px;
+      padding: 22px 22px 20px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
       position: relative;
-      background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
-    }
-
-    .brand-row {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 16px;
-      flex-wrap: wrap;
-    }
-
-    .logo-container {
-      width: 64px;
-      height: 64px;
-      background: rgba(255, 255, 255, 0.98);
-      border-radius: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
       overflow: hidden;
     }
 
+    header::after {
+      content: "VEADIK TRIP";
+      position: absolute;
+      right: -40px;
+      top: -10px;
+      font-size: 4.3rem;
+      font-weight: 800;
+      letter-spacing: 0.25em;
+      color: rgba(148, 163, 255, 0.09);
+      transform: rotate(-18deg);
+      pointer-events: none;
+    }
+
+    .hero-top {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 22px;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .logo-container {
+      width: 72px;
+      height: 72px;
+      background: radial-gradient(circle at 25% 0%, #e0f2fe, #ffffff);
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 16px 35px rgba(0,0,0,0.4);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .logo-container::after {
+      content: "";
+      position: absolute;
+      inset: 3px;
+      border-radius: inherit;
+      border: 1px solid rgba(148,163,255,0.35);
+      mix-blend-mode: screen;
+    }
+
     .logo-container img {
-      width: 52px;
-      height: 52px;
+      width: 58px;
+      height: 58px;
       object-fit: contain;
       display: block;
     }
 
+    .brand-text {
+      flex: 1;
+      min-width: 200px;
+    }
+
     .brand-text h1 {
-      margin: 0;
-      font-size: 1.8rem;
+      margin: 0 0 4px;
+      font-size: 2rem;
       font-weight: 800;
-      background: linear-gradient(to right, #fff, #a5b4fc);
+      background: linear-gradient(90deg, #e5f2ff, #a5b4fc, #f9a8d4);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      letter-spacing: -0.02em;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
     }
 
-    .brand-text p {
-      margin: 4px 0 0;
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      font-weight: 400;
-    }
-
-    .chips {
+    .brand-subtitle {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 16px;
+      gap: 8px 16px;
+      align-items: center;
+      font-size: 0.92rem;
+      color: var(--text-muted);
+    }
+
+    .pill-small {
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(148, 163, 255, 0.4);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 600;
+    }
+
+    .hero-badge-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
     }
 
     .chip {
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       padding: 6px 14px;
-      border-radius: 50px;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-pill);
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(148, 163, 255, 0.35);
       font-weight: 500;
-      backdrop-filter: blur(4px);
+      backdrop-filter: blur(6px);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .chip.highlight {
       border-color: var(--primary);
-      background: rgba(0, 212, 255, 0.18);
+      background: linear-gradient(135deg, rgba(56,189,248,0.18), rgba(59,130,246,0.16));
+      box-shadow: 0 8px 26px rgba(56,189,248,0.38);
+    }
+
+    .hero-bottom {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      margin-top: 18px;
+      justify-content: space-between;
     }
 
     .nav-buttons {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      margin-top: 20px;
     }
 
     .btn {
       text-decoration: none;
       color: #fff;
-      background: rgba(255,255,255,0.08);
-      padding: 10px 18px;
+      background: rgba(15,23,42,0.85);
+      padding: 9px 16px;
       border-radius: 14px;
       font-weight: 600;
-      font-size: 0.9rem;
+      font-size: 0.86rem;
       transition: all 0.2s;
-      border: 1px solid transparent;
+      border: 1px solid rgba(148,163,255,0.35);
       display: inline-flex;
       align-items: center;
       gap: 6px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent, rgba(255,255,255,0.24), transparent);
+      transform: translateX(-120%);
+      transition: transform 0.35s ease;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .btn:hover::after {
+      transform: translateX(120%);
+      opacity: 1;
     }
 
     .btn:hover {
-      background: rgba(255,255,255,0.15);
-      transform: translateY(-2px);
+      background: rgba(15,23,42,0.95);
+      transform: translateY(-1px);
+      border-color: rgba(191,219,254,0.7);
     }
 
     .btn.primary {
       background: linear-gradient(135deg, var(--secondary), var(--primary));
-      box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+      border-color: transparent;
+      box-shadow: 0 10px 28px rgba(59,130,246,0.75);
     }
 
     .btn.map {
-      background: rgba(0,0,0,0.3);
-      border: 1px dashed rgba(255,255,255,0.3);
+      background: rgba(15,23,42,0.9);
+      border-style: dashed;
+      border-color: rgba(148,163,255,0.5);
       color: var(--accent);
     }
 
+    .hero-right-note {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      max-width: 220px;
+      line-height: 1.4;
+    }
+
+    .hero-right-note span {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* GRID LAYOUT */
     .grid {
       display: grid;
-      grid-template-columns: 1.5fr 1fr;
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.1fr);
       gap: 20px;
+      margin-top: 6px;
     }
 
-    @media (max-width: 768px) {
-      .grid { grid-template-columns: 1fr; }
-      .brand-text h1 { font-size: 1.4rem; }
+    @media (max-width: 860px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+      header {
+        padding: 18px 16px 18px;
+      }
+      .brand-text h1 {
+        font-size: 1.55rem;
+      }
+      header::after {
+        display: none;
+      }
     }
 
+    @media (max-width: 600px) {
+      .hero-top {
+        align-items: flex-start;
+      }
+      body {
+        padding-inline: 10px;
+      }
+    }
+
+    /* SECTION HEADINGS */
     h2 {
       margin: 0 0 16px;
-      font-size: 1.1rem;
+      font-size: 1rem;
       font-weight: 700;
       color: var(--accent);
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      display: flex;
+      letter-spacing: 0.14em;
+      display: inline-flex;
       align-items: center;
       gap: 8px;
+    }
+
+    h2::before {
+      content: "";
+      width: 26px;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+    }
+
+    /* QUICK INFO & MAPS */
+    .card-inner {
+      padding: 20px 20px 18px;
     }
 
     .loc-list {
       display: grid;
       gap: 12px;
     }
+
     .loc-item {
       display: flex;
       justify-content: space-between;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      padding-bottom: 8px;
-      font-size: 0.95rem;
+      border-bottom: 1px dashed rgba(148,163,255,0.25);
+      padding-bottom: 7px;
+      font-size: 0.92rem;
+      gap: 10px;
     }
-    .loc-label { color: var(--text-muted); font-size: 0.85rem; }
-    .loc-val { font-weight: 500; text-align: right; }
 
+    .loc-label {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .loc-val {
+      font-weight: 500;
+      text-align: right;
+    }
+
+    /* LIVE STATUS */
+    .live-card {
+      padding: 18px 20px 20px;
+      margin-top: 16px;
+    }
+
+    .live-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .live-head h2 {
+      margin-bottom: 0;
+    }
+
+    .live-badge {
+      font-weight: 800;
+      font-size: 0.78rem;
+      padding: 7px 12px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(34,197,94,0.4);
+      background: radial-gradient(circle at 10% 0, rgba(34,197,94,0.28), rgba(15,23,42,0.9));
+      color: #bbf7d0;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .live-badge::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 10px #22c55e;
+    }
+
+    .live-body {
+      margin-top: 12px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.1fr);
+      gap: 14px;
+    }
+
+    @media (max-width: 700px) {
+      .live-body {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .countdown {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .pill {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-width: 92px;
+      padding: 10px 12px;
+      border-radius: 18px;
+      border: 1px solid rgba(148,163,255,0.4);
+      background: radial-gradient(circle at 0 0, rgba(148,163,255,0.38), rgba(15,23,42,0.95));
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 24px rgba(15,23,42,0.9);
+    }
+
+    .pill .num {
+      font-size: 1.7rem;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .pill .lbl {
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      margin-top: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .now-next {
+      border: 1px solid rgba(148,163,255,0.35);
+      border-radius: 16px;
+      padding: 10px 12px;
+      background: radial-gradient(circle at 100% 0, rgba(56,189,248,0.12), rgba(15,23,42,0.95));
+    }
+
+    .now-next .row {
+      display: grid;
+      grid-template-columns: 90px 1fr;
+      gap: 8px;
+      padding: 6px 0;
+      font-size: 0.9rem;
+    }
+
+    .now-next .k {
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.72rem;
+    }
+
+    .now-next .v {
+      font-weight: 600;
+    }
+
+    .progress-wrap {
+      grid-column: 1 / -1;
+      margin-top: 4px;
+    }
+
+    .progress {
+      position: relative;
+      height: 12px;
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid rgba(148,163,255,0.45);
+      background: linear-gradient(90deg, rgba(15,23,42,0.9), rgba(15,23,42,0.9));
+    }
+
+    .progress span {
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 0%;
+      background: linear-gradient(90deg, var(--secondary), var(--primary));
+      box-shadow: 0 0 14px rgba(59,130,246,0.8) inset;
+      transition: width 0.35s ease;
+    }
+
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    /* DAY / TIMELINE ACCORDIONS */
     details {
       background: var(--glass-bg);
       border: 1px solid var(--glass-border);
-      border-radius: 20px;
+      border-radius: var(--radius-lg);
       margin-bottom: 16px;
       overflow: hidden;
-      transition: background 0.3s;
+      transition: background 0.3s, border-color 0.3s, transform 0.25s ease;
     }
 
     details[open] {
-      background: rgba(30, 35, 55, 0.8);
-      border-color: rgba(255,255,255,0.2);
+      background: radial-gradient(circle at 0 0, rgba(56,189,248,0.12), rgba(15,23,42,0.96));
+      border-color: rgba(148,163,255,0.6);
+      transform: translateY(-1px);
     }
 
     summary {
-      padding: 18px 20px;
+      padding: 16px 20px;
       cursor: pointer;
       font-weight: 700;
-      font-size: 1.05rem;
+      font-size: 0.98rem;
       list-style: none;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 10px;
+      background: linear-gradient(90deg, rgba(15,23,42,0.8), rgba(15,23,42,0.4));
+      position: relative;
     }
 
     summary::-webkit-details-marker { display: none; }
-    summary:hover { background: rgba(255,255,255,0.03); }
+
+    summary:hover {
+      background: linear-gradient(90deg, rgba(15,23,42,0.95), rgba(15,23,42,0.6));
+    }
+
+    .summary-title {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .summary-title span:first-child {
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    .summary-title span:last-child {
+      font-size: 0.97rem;
+    }
 
     .tag {
       font-size: 0.75rem;
-      padding: 4px 10px;
-      border-radius: 8px;
+      padding: 5px 11px;
+      border-radius: 10px;
       text-transform: uppercase;
       letter-spacing: 0.05em;
       font-weight: 800;
+      color: #0f172a;
     }
+
     .tag.night { background: linear-gradient(45deg, #4f46e5, #818cf8); }
-    .tag.beach { background: linear-gradient(45deg, #06b6d4, #22d3ee); color: #000; }
-    .tag.fun { background: linear-gradient(45deg, #f59e0b, #fbbf24); color: #000; }
+    .tag.beach { background: linear-gradient(45deg, #22d3ee, #06b6d4); }
+    .tag.fun   { background: linear-gradient(45deg, #facc15, #fb923c); }
 
     .timeline {
       list-style: none;
-      padding: 0 20px 20px;
+      padding: 4px 20px 18px;
       margin: 0;
     }
 
     .timeline li {
       position: relative;
       padding-left: 24px;
-      margin-bottom: 24px;
-      border-left: 2px solid rgba(255,255,255,0.1);
+      margin-bottom: 22px;
+      border-left: 2px solid rgba(148,163,255,0.45);
     }
 
-    .timeline li:last-child { margin-bottom: 0; border-left-color: transparent; }
+    .timeline li:last-child {
+      margin-bottom: 6px;
+      border-left-color: transparent;
+    }
 
     .timeline li::before {
       content: '';
       position: absolute;
-      left: -6px;
+      left: -7px;
       top: 0;
-      width: 10px;
-      height: 10px;
+      width: 11px;
+      height: 11px;
       border-radius: 50%;
-      background: var(--primary);
-      box-shadow: 0 0 10px var(--primary);
+      background: radial-gradient(circle at 30% 0, #e0f2fe, var(--primary));
+      box-shadow: 0 0 12px var(--primary);
     }
 
     .t-time {
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       color: var(--primary);
       font-weight: 700;
-      margin-bottom: 4px;
+      margin-bottom: 3px;
       display: block;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
     }
 
     .t-title {
-      font-size: 1rem;
+      font-size: 0.96rem;
       font-weight: 600;
       margin-bottom: 6px;
-      color: #fff;
+      color: #e5e7eb;
     }
 
     .t-desc {
@@ -307,61 +645,65 @@
 
     .t-desc li::before { display: none; }
 
+    /* BUS STATUS & LOCATION */
+    .status-note {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .pickup-select {
+      background: rgba(15,23,42,0.95);
+      color: #e5e7eb;
+      border-radius: 10px;
+      border: 1px solid rgba(148,163,255,0.6);
+      padding: 7px 10px;
+      font-size: 0.83rem;
+      min-width: 180px;
+    }
+
+    .loc-btn {
+      border-radius: 10px;
+      border: none;
+      padding: 9px 14px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #020617;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 10px 22px rgba(34,211,238,0.5);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .loc-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 30px rgba(34,211,238,0.7);
+    }
+
+    /* GENERAL INSTRUCTIONS */
+    #rules {
+      border-color: rgba(255, 209, 102, 0.55);
+      background: radial-gradient(circle at 0 0, rgba(255, 209, 102, 0.18), rgba(15,23,42,0.98));
+    }
+
+    /* FOOTER */
     footer {
       text-align: center;
       color: var(--text-muted);
-      font-size: 0.85rem;
-      margin-top: 40px;
-      opacity: 0.7;
+      font-size: 0.82rem;
+      margin-top: 32px;
+      opacity: 0.78;
     }
 
-    /* Live status card */
-    .live-card { padding: 18px 18px; }
-    .live-head{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
-    .live-head h2{ margin:0; letter-spacing:.05em; }
-    .live-badge{
-      font-weight:800; font-size:.8rem; padding:6px 10px; border-radius:999px;
-      border:1px solid rgba(0,212,255,.35); background:rgba(0,212,255,.14); color:#eaffff;
-    }
-
-    .live-body{ margin-top:10px; display:grid; grid-template-columns: 1fr 1fr; gap:12px; }
-    @media(max-width: 700px){ .live-body{ grid-template-columns:1fr; } }
-
-    .countdown{ display:flex; gap:10px; flex-wrap:wrap }
-    .pill{
-      display:flex; flex-direction:column; align-items:center; justify-content:center;
-      min-width:90px; padding:10px 12px; border-radius:16px;
-      border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.06);
-      backdrop-filter: blur(8px);
-    }
-    .pill .num{ font-size:1.6rem; font-weight:900; line-height:1; }
-    .pill .lbl{ color:var(--text-muted); font-size:.8rem; margin-top:4px }
-
-    .now-next{ border:1px solid rgba(255,255,255,.10); border-radius:14px; padding:10px 12px; background:rgba(255,255,255,.04); }
-    .now-next .row{ display:grid; grid-template-columns: 95px 1fr; gap:10px; padding:6px 0; }
-    .now-next .k{ color:var(--text-muted); font-weight:600 }
-    .now-next .v{ font-weight:700 }
-
-    .progress-wrap{ grid-column: 1 / -1; }
-    .progress{
-      position:relative; height:12px; border-radius:999px; overflow:hidden;
-      border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.06);
-    }
-    .progress span{
-      position:absolute; left:0; top:0; bottom:0; width:0%;
-      background: linear-gradient(90deg, var(--secondary), var(--primary));
-      box-shadow: 0 0 14px rgba(0,212,255,.35) inset; transition: width .35s ease;
-    }
-    .progress-meta{ display:flex; justify-content:space-between; font-size:.85rem; color:var(--text-muted); margin-top:6px }
-
-    @media(max-width:600px){
-      .pill{ min-width:84px; padding:8px 10px }
-      .pill .num{ font-size:1.4rem }
-      .now-next .row{ grid-template-columns: 80px 1fr }
+    footer p {
+      margin: 0;
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
+      from { opacity: 0; transform: translateY(12px); }
       to { opacity: 1; transform: translateY(0); }
     }
   </style>
@@ -371,9 +713,9 @@
 
   <div class="wrap">
 
-    <!-- HEADER CARD -->
+    <!-- HEADER HERO -->
     <header class="glass-card">
-      <div class="brand-row">
+      <div class="hero-top">
         <div class="logo-container">
           <img src="https://drive.google.com/thumbnail?id=1YvBYuF7k4JgjFKN8K8Y7-i1sSQr8tBmY&sz=w512"
                alt="VEADIK Logo"
@@ -381,30 +723,37 @@
         </div>
         <div class="brand-text">
           <h1>VEADIK OFFICE TRIP</h1>
-          <p>🏖️BayNest Beach House • Kundapura</p>
+          <div class="brand-subtitle">
+            <span>🏖️ BayNest Beach House • Kundapura</span>
+            <span class="pill-small">Male Team • 2025</span>
+          </div>
+          <div class="hero-badge-strip">
+            <span class="chip highlight">📅 25 – 27 December 2025</span>
+            <span class="chip">📍 Start: Kalyan Nagar, Bangalore</span>
+            <span class="chip">🚐 Tempo Traveller</span>
+            <span class="chip">🔥 Relax &amp; Fun</span>
+          </div>
         </div>
       </div>
 
-      <div class="chips">
-        <span class="chip highlight">📅 25th, 26th &amp; 27th December 2025</span>
-        <span class="chip">📍 Start: Kalyan Nagar, Bangalore</span>
-        <span class="chip">🌊 Male Team</span>
-        <span class="chip">🔥 Relax &amp; Fun</span>
-        <span class="chip">🚐 Tempo Traveller</span>
-      </div>
-
-      <div class="nav-buttons">
-        <a href="#live" class="btn primary">🟢 Live Status</a>
-        <a href="#day0" class="btn">🗓️ Day 0</a>
-        <a href="#buss" class="btn">🚌 Live Bus Status</a>
-        <a href="#day1" class="btn">🌊 Day 1</a>
-        <a href="#day2" class="btn">🏝️ Day 2</a>
-        <a href="#return" class="btn">🔙 Return</a>
-        <a href="#rules" class="btn">📌 Instructions</a>
+      <div class="hero-bottom">
+        <div class="nav-buttons">
+          <a href="#live" class="btn primary">🟢 Live Status</a>
+          <a href="#day0" class="btn">🗓️ Day 0</a>
+          <a href="#buss" class="btn">🚌 Bus Status</a>
+          <a href="#day1" class="btn">🌊 Day 1</a>
+          <a href="#day2" class="btn">🏝️ Day 2</a>
+          <a href="#return" class="btn">🔙 Return</a>
+          <a href="#rules" class="btn">📌 Instructions</a>
+        </div>
+        <div class="hero-right-note">
+          Trip is designed as a chill, beach-side office escape with controlled vibes and maximum fun.<br>
+          <span>Save this link &amp; keep it open during travel.</span>
+        </div>
       </div>
     </header>
 
-    <!-- LIVE STATUS + COUNTDOWN -->
+    <!-- LIVE STATUS -->
     <section id="live" class="glass-card live-card" aria-live="polite">
       <div class="live-head">
         <h2>🟢 Live status</h2>
@@ -439,50 +788,53 @@
       </div>
     </section>
 
+    <!-- MAPS + QUICK INFO -->
     <div class="grid">
-      <!-- MAPS CARD -->
-      <section class="glass-card" style="padding: 20px;">
-        <h2>🗺️ Navigate (Click to Open)</h2>
-        <div class="nav-buttons" style="margin-top:0;">
-          <a href="https://maps.app.goo.gl/LAF1iijaB3hR8pya9" target="_blank" class="btn map">🏢 Office</a>
-          <a href="https://maps.app.goo.gl/ms51LiB7QjquPfxaA" target="_blank" class="btn map">🚏 Hebbal</a>
-          <a href="https://maps.app.goo.gl/rHRuxFrj26JEBdQk6" target="_blank" class="btn map">🚏 Goraguntepalya</a>
-          <a href="https://maps.app.goo.gl/STF2vHemHNfZAL4m7" target="_blank" class="btn map">🚏 Nelamangala</a>
-          <a href="https://maps.app.goo.gl/wbxwSBydcS9paeSC7" target="_blank" class="btn map" style="border-color:var(--primary)">🏖️ BayNest Beach House</a>
-          <a href="https://maps.app.goo.gl/1s5CnZiwn8dNUBNc6" target="_blank" class="btn map" style="border-color:var(--accent)">🌊 Kodi Delta Point</a>
+      <section class="glass-card">
+        <div class="card-inner">
+          <h2>🗺️ Navigate (click)</h2>
+          <div class="nav-buttons" style="margin-top:4px;">
+            <a href="https://maps.app.goo.gl/LAF1iijaB3hR8pya9" target="_blank" class="btn map">🏢 Office</a>
+            <a href="https://maps.app.goo.gl/ms51LiB7QjquPfxaA" target="_blank" class="btn map">🚏 Hebbal</a>
+            <a href="https://maps.app.goo.gl/rHRuxFrj26JEBdQk6" target="_blank" class="btn map">🚏 Goraguntepalya</a>
+            <a href="https://maps.app.goo.gl/STF2vHemHNfZAL4m7" target="_blank" class="btn map">🚏 Nelamangala</a>
+            <a href="https://maps.app.goo.gl/wbxwSBydcS9paeSC7" target="_blank" class="btn map" style="border-color:var(--primary)">🏖️ BayNest</a>
+            <a href="https://maps.app.goo.gl/1s5CnZiwn8dNUBNc6" target="_blank" class="btn map" style="border-color:var(--accent)">🌊 Kodi Delta</a>
+          </div>
         </div>
       </section>
 
-      <!-- QUICK INFO -->
-      <aside class="glass-card" style="padding: 20px;">
-        <h2>✅ Quick Info</h2>
-        <div class="loc-list">
-          <div class="loc-item">
-            <span class="loc-label">Route</span>
-            <span class="loc-val">Hebbal → Goraguntepalya → Nelamangala</span>
-          </div>
-          <div class="loc-item">
-            <span class="loc-label">Stay</span>
-            <span class="loc-val">BayNest Beach House</span>
-          </div>
-          <div class="loc-item">
-            <span class="loc-label">Nearby</span>
-            <span class="loc-val">Kodi Delta Point</span>
-          </div>
-          <div class="loc-item">
-            <span class="loc-label">Reminder</span>
-            <span class="loc-val" style="color:var(--warn);">Dinner at home on 25th 🍽️</span>
+      <aside class="glass-card">
+        <div class="card-inner">
+          <h2>✅ Quick info</h2>
+          <div class="loc-list">
+            <div class="loc-item">
+              <span class="loc-label">Route</span>
+              <span class="loc-val">Hebbal → Goraguntepalya → Nelamangala</span>
+            </div>
+            <div class="loc-item">
+              <span class="loc-label">Stay</span>
+              <span class="loc-val">BayNest Beach House</span>
+            </div>
+            <div class="loc-item">
+              <span class="loc-label">Nearby</span>
+              <span class="loc-val">Kodi Delta Point</span>
+            </div>
+            <div class="loc-item">
+              <span class="loc-label">Reminder</span>
+              <span class="loc-val" style="color:var(--warn);">Dinner at home on 25th 🍽️</span>
+            </div>
           </div>
         </div>
       </aside>
     </div>
 
-            <!-- LIVE BUS STATUS -->
-    <section class="glass-card" style="padding:20px; margin-top:10px;">
+    <!-- LIVE BUS STATUS -->
+    <section class="glass-card" style="padding:20px; margin-top:12px;">
       <p id="buss"></p>
-      <h2>🚌 Live Bus Status</h2>
-      <p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:8px;">
-        Updated by coordinator from Google Sheet. Refreshes automatically every 30 seconds.
+      <h2>🚌 Live bus status</h2>
+      <p class="status-note">
+        Updated by coordinator from Google Sheet. Auto-refresh every 30 seconds.
       </p>
       <p id="bus-status-text"><strong>Status:</strong> Loading current status…</p>
       <p id="bus-leg-text"></p>
@@ -490,14 +842,43 @@
       <small id="bus-updated-text" style="opacity:0.7;"></small>
     </section>
 
+    <!-- YOUR DISTANCE TO PICKUP -->
+    <section class="glass-card" style="padding:20px; margin-top:6px;">
+      <h2>📍 Your distance to pickup</h2>
+      <p class="status-note">
+        Optional: Allow location only to see distance and open route in Google Maps. Location stays only in your browser.
+      </p>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:8px;">
+        <label for="pickup-select" style="font-size:0.82rem;">Pickup point:</label>
+        <select id="pickup-select" class="pickup-select">
+          <option value="office">Office – Kalyan Nagar</option>
+          <option value="hebbal">Hebbal</option>
+          <option value="goraguntepalya">Goraguntepalya</option>
+          <option value="nelamangala">Nelamangala</option>
+          <option value="baynest">BayNest Beach House</option>
+        </select>
+        <button id="loc-btn" class="loc-btn">
+          📡 Show my distance
+        </button>
+      </div>
+      <p id="loc-result" style="font-size:0.9rem;margin-top:6px;"></p>
+      <a id="gmaps-link" href="#" target="_blank"
+         style="display:none;margin-top:4px;font-size:0.85rem;color:var(--accent);text-decoration:none;">
+        Open route in Google Maps
+      </a>
+    </section>
 
     <!-- DAY 0 -->
     <details id="day0" open>
       <summary>
-        <span>DAY 0 — 25th Dec (Late Night Journey)</span>
+        <div class="summary-title">
+          <span>Day 0 • 25 Dec</span>
+          <span>Late night journey</span>
+        </div>
         <span class="tag night">🌙 Travel</span>
       </summary>
       <ul class="timeline">
+        <!-- content unchanged -->
         <li>
           <span class="t-time">09:00 PM – 09:30 PM</span>
           <div class="t-title">🏢 Office Assembly – Kalyan Nagar</div>
@@ -562,10 +943,14 @@
     <!-- DAY 1 -->
     <details id="day1">
       <summary>
-        <span>DAY 1 — 26th Dec (Travel + Kaadi + Check-in)</span>
+        <div class="summary-title">
+          <span>Day 1 • 26 Dec</span>
+          <span>Travel, Kaadi &amp; check-in</span>
+        </div>
         <span class="tag beach">🌊 Beach Day</span>
       </summary>
       <ul class="timeline">
+        <!-- content unchanged -->
         <li>
           <span class="t-time">07:30 AM – 08:00 AM</span>
           <div class="t-title">🌅 Early Morning Break</div>
@@ -662,10 +1047,14 @@
     <!-- DAY 2 -->
     <details id="day2">
       <summary>
-        <span>DAY 2 — 27th Dec (Kodi + Activities)</span>
+        <div class="summary-title">
+          <span>Day 2 • 27 Dec</span>
+          <span>Kodi + activities</span>
+        </div>
         <span class="tag fun">🏝️ Explore</span>
       </summary>
       <ul class="timeline">
+        <!-- content unchanged -->
         <li>
           <span class="t-time">07:30 AM – 08:30 AM</span>
           <div class="t-title">🌅 Morning Routine</div>
@@ -722,7 +1111,10 @@
     <!-- RETURN -->
     <details id="return">
       <summary>
-        <span>RETURN JOURNEY — 27th Night</span>
+        <div class="summary-title">
+          <span>Return • 27 Dec night</span>
+          <span>Back to Bangalore</span>
+        </div>
         <span class="tag night">🚐 Return</span>
       </summary>
       <ul class="timeline">
@@ -744,11 +1136,11 @@
     </details>
 
     <!-- GENERAL INSTRUCTIONS -->
-    <section class="glass-card" id="rules" style="padding: 20px; border-color: rgba(255, 209, 102, 0.4);">
-      <h2>📌 General Instructions</h2>
-      <ul class="timeline" style="border-left:none;padding:0 0 0 4px;">
+    <section class="glass-card" id="rules" style="padding: 20px;">
+      <h2>📌 General instructions</h2>
+      <ul class="timeline" style="border-left:none;padding:4px 0 0 4px;">
         <li style="border-left:none;margin-bottom:10px;padding-left:0;">
-          <div class="t-title">🍽️ Before Trip</div>
+          <div class="t-title">🍽️ Before trip</div>
           <ul class="t-desc">
             <li>Finish dinner at home on 25th December.</li>
           </ul>
@@ -761,7 +1153,7 @@
           </ul>
         </li>
         <li style="border-left:none;margin-bottom:10px;padding-left:0;">
-          <div class="t-title">🥥 Behaviour &amp; Safety</div>
+          <div class="t-title">🥥 Behaviour &amp; safety</div>
           <ul class="t-desc">
             <li>Responsible behaviour during beach time &amp; drinks.</li>
             <li>Safety first at all times, especially near water.</li>
@@ -788,7 +1180,7 @@
 
   </div>
 
-  <!-- LIVE STATUS SCRIPT -->
+  <!-- SCRIPTS: live status, bus status, location (unchanged logic) -->
   <script>
     const pad = n => String(n).padStart(2,'0');
     const istDate = (y, m, d, hh=0, mm=0) =>
@@ -810,8 +1202,6 @@
       start: istDate(y,m,d,sh,sm),
       end:   istDate(y,m,d,eh,em)
     });
-
-    // Itinerary slots (same as text above)
 
     // Day 0
     ev('Office assembly — Kalyan Nagar', 2025,12,25, 21,00, 21,30);
@@ -929,8 +1319,7 @@
         ddEl.textContent = c.days; hhEl.textContent = c.hours; mmEl.textContent = c.mins;
       }
     }
-    
-        /* ---------- BUS STATUS FROM APPS SCRIPT ---------- */
+
     const BUS_API_URL = 'https://script.google.com/macros/s/AKfycbyoGY6nkuEnSMnYg2yMEonwtW4r_L4TN8AXMzfXVsqudHUVZz2tZ36f1I0QQry9-hyS/exec';
 
     async function loadBusStatus() {
@@ -959,6 +1348,67 @@
 
     loadBusStatus();
     setInterval(loadBusStatus, 30000);
+
+    const PICKUPS = {
+      office: { name: 'Office – Kalyan Nagar',   lat: 13.0260, lng: 77.6420 },
+      hebbal: { name: 'Hebbal',                  lat: 13.0233, lng: 77.3522 },
+      goraguntepalya: { name: 'Goraguntepalya',  lat: 13.0144, lng: 77.3222 },
+      nelamangala: { name: 'Nelamangala',        lat: 13.0315, lng: 77.2837 },
+      baynest: { name: 'BayNest Beach House',    lat: 13.5619, lng: 74.6799 }
+    };
+
+    function toRad(deg) { return deg * Math.PI / 180; }
+
+    function distanceKm(lat1, lon1, lat2, lon2) {
+      const R = 6371;
+      const dLat = toRad(lat2 - lat1);
+      const dLon = toRad(lon2 - lon1);
+      const a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      return R * c;
+    }
+
+    document.getElementById('loc-btn').addEventListener('click', () => {
+      const select = document.getElementById('pickup-select');
+      const pickup = PICKUPS[select.value];
+      const resultEl = document.getElementById('loc-result');
+      const linkEl = document.getElementById('gmaps-link');
+
+      if (!navigator.geolocation) {
+        resultEl.textContent = 'Your browser does not support location.';
+        linkEl.style.display = 'none';
+        return;
+      }
+
+      resultEl.textContent = 'Getting your location…';
+      linkEl.style.display = 'none';
+
+      navigator.geolocation.getCurrentPosition(
+        pos => {
+          const { latitude, longitude } = pos.coords;
+          const dist = distanceKm(latitude, longitude, pickup.lat, pickup.lng);
+          resultEl.textContent =
+            `You are about ${dist.toFixed(1)} km from ${pickup.name}.`;
+
+          const mapsUrl =
+            'https://www.google.com/maps/dir/?api=1' +
+            `&origin=${latitude},${longitude}` +
+            `&destination=${pickup.lat},${pickup.lng}`;
+
+          linkEl.href = mapsUrl;
+          linkEl.style.display = 'inline-block';
+          linkEl.textContent = 'Open route in Google Maps';
+        },
+        err => {
+          console.error(err);
+          resultEl.textContent = `Error ${err.code}: ${err.message}`;
+          linkEl.style.display = 'none';
+        }
+      );
+    });
 
     updateLive();
     setInterval(updateLive, 30000);
