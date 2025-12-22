@@ -645,6 +645,45 @@
 
     .t-desc li::before { display: none; }
 
+    /* RULES GRID (New) */
+    .rules-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+    @media(max-width: 700px){
+      .rules-grid { grid-template-columns: 1fr; gap: 30px; }
+    }
+    
+    .rule-col {
+      position: relative;
+    }
+
+    .check-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 10px;
+    }
+    
+    .check-list li {
+      position: relative;
+      padding-left: 26px;
+      margin-bottom: 12px;
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+    
+    .check-list li::before {
+      content: '✔';
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--accent);
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
     /* BUS STATUS & LOCATION */
     .status-note {
       font-size: 0.78rem;
@@ -683,10 +722,10 @@
       box-shadow: 0 14px 30px rgba(34,211,238,0.7);
     }
 
-    /* GENERAL INSTRUCTIONS */
+    /* GENERAL INSTRUCTIONS OVERRIDES */
     #rules {
-      border-color: rgba(255, 209, 102, 0.55);
-      background: radial-gradient(circle at 0 0, rgba(255, 209, 102, 0.18), rgba(15,23,42,0.98));
+      border-color: rgba(255, 209, 102, 0.45);
+      background: radial-gradient(circle at 0 0, rgba(255, 209, 102, 0.12), rgba(15,23,42,0.98));
     }
 
     /* FOOTER */
@@ -744,7 +783,7 @@
           <a href="#day1" class="btn">🌊 Day 1</a>
           <a href="#day2" class="btn">🏝️ Day 2</a>
           <a href="#return" class="btn">🔙 Return</a>
-          <a href="#rules" class="btn">📌 Instructions</a>
+          <a href="#rules" class="btn">📌 Guide</a>
         </div>
         <div class="hero-right-note">
           Trip is designed as a chill, beach-side office escape with controlled vibes and maximum fun.<br>
@@ -833,9 +872,6 @@
     <section class="glass-card" style="padding:20px; margin-top:12px;">
       <p id="buss"></p>
       <h2>🚌 Live bus status</h2>
-      <p class="status-note">
-        Updated by coordinator from Google Sheet. Auto-refresh every 30 seconds.
-      </p>
       <p id="bus-status-text"><strong>Status:</strong> Loading current status…</p>
       <p id="bus-leg-text"></p>
       <p id="bus-eta-text"></p>
@@ -877,7 +913,7 @@
             <li>Music ON 🎶</li>
             <li>Light snacks only</li>
             <li>Casual team interaction</li>
-            <li><strong>Limited alcohol (responsible) ⚠️</strong></li>
+            <li><strong>Limited drinks (responsible) ⚠️</strong></li>
           </ul>
         </li>
         <li>
@@ -952,7 +988,7 @@
             <li>Light walk</li>
             <li>Photos</li>
             <li>Freshen up &amp; change clothes</li>
-            <li><strong>Kaadi drinks (limited)</strong></li>
+            <li><strong>Kaadi refreshments (limited)</strong></li>
           </ul>
         </li>
         <li>
@@ -987,7 +1023,7 @@
             <li>Walk &amp; relaxation</li>
             <li>Group photos &amp; reels</li>
             <li>Light beach games</li>
-            <li><strong>Alcohol consumption (controlled &amp; responsible)</strong></li>
+            <li><strong>Beverages served (controlled &amp; responsible)</strong></li>
             <li>Enjoy sea breeze</li>
           </ul>
         </li>
@@ -1010,7 +1046,7 @@
             <li>Campfire 🔥</li>
             <li>Music &amp; dance 🎶</li>
             <li>Team bonding</li>
-            <li><strong>Alcohol consumption continue (safe &amp; controlled)</strong></li>
+            <li><strong>Drinks continue (safe &amp; controlled)</strong></li>
             <li>Fun discussions &amp; memories</li>
           </ul>
           <p class="t-desc" style="margin-top:6px;">🛏️ Overnight stay at homestay.</p>
@@ -1109,43 +1145,60 @@
       </ul>
     </details>
 
-    <!-- GENERAL INSTRUCTIONS -->
-    <section class="glass-card" id="rules" style="padding: 20px;">
-      <h2>📌 General instructions</h2>
-      <ul class="timeline" style="border-left:none;padding:4px 0 0 4px;">
-        <li style="border-left:none;margin-bottom:10px;padding-left:0;">
-          <div class="t-title">🍽️ Before trip</div>
-          <ul class="t-desc">
-            <li>Finish dinner at home on 25th December.</li>
+    <!-- TRIP GUIDELINES & ESSENTIALS (NEW) -->
+    <section class="glass-card" id="rules" style="padding: 24px;">
+      <h2>📌 Trip Guidelines &amp; Essentials</h2>
+
+      <div class="rules-grid">
+        
+        <!-- COLUMN 1: PACKING -->
+        <div class="rule-col">
+          <div class="t-title" style="color:var(--accent); font-size:1.05rem;">🎒 What to Carry</div>
+          <ul class="check-list">
+             <li><strong>Govt ID Card</strong> (Original - Mandatory)</li>
+             <li><strong>Personal Toiletries</strong> (Towel, Brush, Soap, Shampoo)</li>
+             <li><strong>Power Bank</strong> &amp; Charger</li>
+             <li><strong>Medicines</strong> (Headache, Motion sickness, Acidity)</li>
+             <li><strong>Sunscreen</strong> &amp; Mosquito repellent</li>
+             <li>Water bottle &amp; small cash</li>
           </ul>
-        </li>
-        <li style="border-left:none;margin-bottom:10px;padding-left:0;">
-          <div class="t-title">⏰ Punctuality</div>
-          <ul class="t-desc">
-            <li>Be punctual at all pick-up points.</li>
-            <li>Follow timings strictly.</li>
+
+          <div class="t-title" style="color:var(--primary); font-size:1.05rem; margin-top:24px;">👕 What to Wear</div>
+          <ul class="check-list">
+             <li><strong>Beach:</strong> Shorts, T-shirts, Swimwear, Cap/Hat, Sunglasses 🕶️</li>
+             <li><strong>Footwear:</strong> Flip-flops/Crocs (beach) &amp; Comfy shoes (travel) </li>
+             <li><strong>Winter/AC:</strong> Light <strong>Jacket/Hoodie</strong> (Bus AC &amp; Night chill) 🧥</li>
           </ul>
-        </li>
-        <li style="border-left:none;margin-bottom:10px;padding-left:0;">
-          <div class="t-title">🥥 Behaviour &amp; safety</div>
-          <ul class="t-desc">
-            <li>Responsible behaviour during beach time &amp; drinks.</li>
-            <li>Safety first at all times, especially near water.</li>
-          </ul>
-        </li>
-        <li style="border-left:none;margin-bottom:10px;padding-left:0;">
-          <div class="t-title">♻️ Cleanliness</div>
-          <ul class="t-desc">
-            <li>Keep surroundings and vehicle clean.</li>
-          </ul>
-        </li>
-        <li style="border-left:none;padding-left:0;">
-          <div class="t-title">🤝 Vibes</div>
-          <ul class="t-desc">
-            <li>Enjoy, relax &amp; bond as a team.</li>
-          </ul>
-        </li>
-      </ul>
+        </div>
+
+        <!-- COLUMN 2: RULES -->
+        <div class="rule-col">
+           <div class="t-title" style="color:var(--warn); font-size:1.05rem;">⚠️ Important Guidelines</div>
+           <ul class="timeline" style="padding-left:4px; padding-bottom:0; border:none;">
+             <li style="border-left: 2px solid var(--warn);">
+               <span class="t-time" style="color:var(--warn)">Dinner</span>
+               <div class="t-desc">Please <strong>finish dinner at home</strong> on 25th Dec before boarding.</div>
+             </li>
+             <li style="border-left: 2px solid var(--warn);">
+               <span class="t-time" style="color:var(--warn)">Punctuality</span>
+               <div class="t-desc">Bus will not wait long. Be strictly on time at pickup points.</div>
+             </li>
+             <li style="border-left: 2px solid var(--warn);">
+               <span class="t-time" style="color:var(--warn)">Safety First</span>
+               <div class="t-desc">No going deep into the sea. Be careful with waves. <strong>No swimming if intoxicated.</strong></div>
+             </li>
+             <li style="border-left: 2px solid var(--warn);">
+               <span class="t-time" style="color:var(--warn)">Drinks &amp; Behaviour</span>
+               <div class="t-desc">Consume <strong>drinks responsibly</strong>. Maintain a fun &amp; positive team vibe. No nuisance.</div>
+             </li>
+             <li style="border-left: 2px solid var(--warn); margin-bottom:0;">
+               <span class="t-time" style="color:var(--warn)">Cleanliness</span>
+               <div class="t-desc">Use dustbins. Do not throw trash in the bus or on the beach.</div>
+             </li>
+           </ul>
+        </div>
+
+      </div>
     </section>
 
     <footer>
