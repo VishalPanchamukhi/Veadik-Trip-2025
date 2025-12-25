@@ -791,42 +791,7 @@
         </div>
       </div>
     </header>
-
-    <!-- LIVE STATUS -->
-    <section id="live" class="glass-card live-card" aria-live="polite">
-      <div class="live-head">
-        <h2>🟢 Live status</h2>
-        <div class="live-badge" id="liveState">Countdown</div>
-      </div>
-
-      <div class="live-body">
-        <div class="countdown" id="countdown">
-          <div class="pill"><div class="num" id="dd">--</div><div class="lbl">Days</div></div>
-          <div class="pill"><div class="num" id="hh">--</div><div class="lbl">Hours</div></div>
-          <div class="pill"><div class="num" id="mm">--</div><div class="lbl">Minutes</div></div>
-        </div>
-
-        <div class="now-next">
-          <div class="row">
-            <div class="k">Now</div>
-            <div class="v" id="nowTitle">—</div>
-          </div>
-          <div class="row">
-            <div class="k">Up next</div>
-            <div class="v" id="nextTitle">—</div>
-          </div>
-        </div>
-
-        <div class="progress-wrap">
-          <div class="progress" id="progress"><span id="progressFill"></span></div>
-          <div class="progress-meta">
-            <span id="progressWindow">—</span>
-            <span id="progressPct">0%</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
+    
     <!-- MAPS + QUICK INFO -->
     <div class="grid">
       <section class="glass-card">
@@ -868,6 +833,43 @@
       </aside>
     </div>
 
+    <!-- LIVE STATUS -->
+    <section id="live" class="glass-card live-card" aria-live="polite">
+      <div class="live-head">
+        <h2>🟢 Live status</h2>
+        <div class="live-badge" id="liveState">Countdown</div>
+      </div>
+
+      <div class="live-body">
+        <div class="countdown" id="countdown">
+          <div class="pill"><div class="num" id="dd">--</div><div class="lbl">Days</div></div>
+          <div class="pill"><div class="num" id="hh">--</div><div class="lbl">Hours</div></div>
+          <div class="pill"><div class="num" id="mm">--</div><div class="lbl">Minutes</div></div>
+        </div>
+
+        <div class="now-next">
+          <div class="row">
+            <div class="k">Now</div>
+            <div class="v" id="nowTitle">—</div>
+          </div>
+          <div class="row">
+            <div class="k">Up next</div>
+            <div class="v" id="nextTitle">—</div>
+          </div>
+        </div>
+
+        <div class="progress-wrap">
+          <div class="progress" id="progress"><span id="progressFill"></span></div>
+          <div class="progress-meta">
+            <span id="progressWindow">—</span>
+            <span id="progressPct">0%</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    
+    
     <!-- LIVE BUS STATUS -->
     <section class="glass-card" style="padding:20px; margin-top:12px;">
       <p id="buss"></p>
@@ -877,6 +879,7 @@
       <p id="bus-eta-text"></p>
       <small id="bus-updated-text" style="opacity:0.7;"></small>
     </section>
+
 
     <!-- DAY 0 -->
     <details id="day0" open>
